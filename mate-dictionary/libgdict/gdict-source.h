@@ -20,95 +20,88 @@
 #ifndef __GDICT_SOURCE_H__
 #define __GDICT_SOURCE_H__
 
-#include <stdarg.h>
 #include <glib-object.h>
+#include <stdarg.h>
+
 #include "gdict-context.h"
 
 G_BEGIN_DECLS
 
-#define GDICT_TYPE_SOURCE		(gdict_source_get_type ())
-#define GDICT_SOURCE(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GDICT_TYPE_SOURCE, GdictSource))
-#define GDICT_IS_SOURCE(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GDICT_TYPE_SOURCE))
-#define GDICT_SOURCE_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), GDICT_TYPE_SOURCE, GdictSourceClass))
-#define GDICT_IS_SOURCE_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), GDICT_TYPE_SOURCE))
-#define GDICT_SOURCE_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GDICT_TYPE_SOURCE, GdictSourceClass))
+#define GDICT_TYPE_SOURCE (gdict_source_get_type())
+#define GDICT_SOURCE(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), GDICT_TYPE_SOURCE, GdictSource))
+#define GDICT_IS_SOURCE(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GDICT_TYPE_SOURCE))
+#define GDICT_SOURCE_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_CAST((klass), GDICT_TYPE_SOURCE, GdictSourceClass))
+#define GDICT_IS_SOURCE_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_TYPE((klass), GDICT_TYPE_SOURCE))
+#define GDICT_SOURCE_GET_CLASS(obj) \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), GDICT_TYPE_SOURCE, GdictSourceClass))
 
-
-typedef struct _GdictSource        GdictSource;
-typedef struct _GdictSourceClass   GdictSourceClass;
+typedef struct _GdictSource GdictSource;
+typedef struct _GdictSourceClass GdictSourceClass;
 typedef struct _GdictSourcePrivate GdictSourcePrivate;
 
-typedef enum
-{
+typedef enum {
   GDICT_SOURCE_TRANSPORT_DICTD,
 
   GDICT_SOURCE_TRANSPORT_INVALID /* only for debug */
 } GdictSourceTransport;
 
-#define GDICT_SOURCE_ERROR	(gdict_source_error_quark ())
+#define GDICT_SOURCE_ERROR (gdict_source_error_quark())
 
-typedef enum
-{
+typedef enum {
   GDICT_SOURCE_ERROR_PARSE,
   GDICT_SOURCE_ERROR_INVALID_NAME,
   GDICT_SOURCE_ERROR_INVALID_TRANSPORT,
   GDICT_SOURCE_ERROR_INVALID_BAD_PARAMETER
 } GdictSourceError;
 
-GQuark gdict_source_error_quark (void);
+GQuark gdict_source_error_quark(void);
 
-struct _GdictSource
-{
+struct _GdictSource {
   /*< private >*/
   GObject parent_instance;
 
   GdictSourcePrivate *priv;
 };
 
-struct _GdictSourceClass
-{
+struct _GdictSourceClass {
   /*< private >*/
   GObjectClass parent_class;
 };
 
-GType gdict_source_get_type (void) G_GNUC_CONST;
+GType gdict_source_get_type(void) G_GNUC_CONST;
 
-GdictSource *         gdict_source_new             (void);
-gboolean              gdict_source_load_from_file  (GdictSource           *source,
-						    const gchar           *filename,
-						    GError               **error);
-gboolean              gdict_source_load_from_data  (GdictSource           *source,
-						    const gchar           *data,
-						    gsize                  length,
-						    GError               **error);
-gchar *               gdict_source_to_data         (GdictSource           *source,
-						    gsize                 *length,
-						    GError               **error) G_GNUC_MALLOC;
+GdictSource *gdict_source_new(void);
+gboolean gdict_source_load_from_file(GdictSource *source, const gchar *filename,
+                                     GError **error);
+gboolean gdict_source_load_from_data(GdictSource *source, const gchar *data,
+                                     gsize length, GError **error);
+gchar *gdict_source_to_data(GdictSource *source, gsize *length,
+                            GError **error) G_GNUC_MALLOC;
 
-void                  gdict_source_set_name        (GdictSource           *source,
-						    const gchar           *name);
-const gchar *gdict_source_get_name        (GdictSource           *source);
-void                  gdict_source_set_description (GdictSource           *source,
-						    const gchar           *description);
-const gchar *gdict_source_get_description (GdictSource           *source);
-void                  gdict_source_set_database    (GdictSource           *source,
-						    const gchar           *database);
-const gchar *gdict_source_get_database    (GdictSource           *source);
-void                  gdict_source_set_strategy    (GdictSource           *source,
-						    const gchar           *strategy);
-const gchar *gdict_source_get_strategy    (GdictSource           *source);
-void                  gdict_source_set_transport   (GdictSource           *source,
-						    GdictSourceTransport   transport,
-						    const gchar           *first_transport_property,
-						    ...);
-void                  gdict_source_set_transportv  (GdictSource           *source,
-						    GdictSourceTransport   transport,
-						    const gchar           *first_transport_property,
-						    va_list                var_args);
-GdictSourceTransport  gdict_source_get_transport   (GdictSource           *source);
+void gdict_source_set_name(GdictSource *source, const gchar *name);
+const gchar *gdict_source_get_name(GdictSource *source);
+void gdict_source_set_description(GdictSource *source,
+                                  const gchar *description);
+const gchar *gdict_source_get_description(GdictSource *source);
+void gdict_source_set_database(GdictSource *source, const gchar *database);
+const gchar *gdict_source_get_database(GdictSource *source);
+void gdict_source_set_strategy(GdictSource *source, const gchar *strategy);
+const gchar *gdict_source_get_strategy(GdictSource *source);
+void gdict_source_set_transport(GdictSource *source,
+                                GdictSourceTransport transport,
+                                const gchar *first_transport_property, ...);
+void gdict_source_set_transportv(GdictSource *source,
+                                 GdictSourceTransport transport,
+                                 const gchar *first_transport_property,
+                                 va_list var_args);
+GdictSourceTransport gdict_source_get_transport(GdictSource *source);
 
-GdictContext *        gdict_source_get_context     (GdictSource           *source);
-GdictContext *        gdict_source_peek_context    (GdictSource           *source);
+GdictContext *gdict_source_get_context(GdictSource *source);
+GdictContext *gdict_source_peek_context(GdictSource *source);
 
 G_END_DECLS
 

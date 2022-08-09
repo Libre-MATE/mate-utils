@@ -23,22 +23,22 @@
 #ifndef __LOGVIEW_LOG_H__
 #define __LOGVIEW_LOG_H__
 
-#include <glib-object.h>
 #include <gio/gio.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
 #define LOGVIEW_TYPE_LOG logview_log_get_type()
 #define LOGVIEW_LOG(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_LOG, LogviewLog))
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_LOG, LogviewLog))
 #define LOGVIEW_LOG_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_LOG, LogviewLogClass))
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_LOG, LogviewLogClass))
 #define LOGVIEW_IS_LOG(obj) \
-  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_LOG))
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_LOG))
 #define LOGVIEW_IS_LOG_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_TYPE ((klass), LOGVIEW_TYPE_LOG))
+  (G_TYPE_CHECK_CLASS_TYPE((klass), LOGVIEW_TYPE_LOG))
 #define LOGVIEW_LOG_GET_CLASS(obj) \
-  (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_LOG, LogviewLogClass))
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_LOG, LogviewLogClass))
 
 typedef struct _LogviewLog LogviewLog;
 typedef struct _LogviewLogClass LogviewLogClass;
@@ -46,16 +46,13 @@ typedef struct _LogviewLogPrivate LogviewLogPrivate;
 
 /* callback signatures for async I/O operations */
 
-typedef void (* LogviewCreateCallback) (LogviewLog *log,
-                                        GError *error,
+typedef void (*LogviewCreateCallback)(LogviewLog *log, GError *error,
+                                      gpointer user_data);
+typedef void (*LogviewNewLinesCallback)(LogviewLog *log, const char **lines,
+                                        GSList *new_days, GError *error,
                                         gpointer user_data);
-typedef void (* LogviewNewLinesCallback) (LogviewLog *log,
-                                          const char **lines,
-                                          GSList *new_days,
-                                          GError *error,
-                                          gpointer user_data);
 
-#define LOGVIEW_ERROR_QUARK g_quark_from_static_string ("logview-error")
+#define LOGVIEW_ERROR_QUARK g_quark_from_static_string("logview-error")
 
 typedef enum {
   LOGVIEW_ERROR_FAILED,
@@ -74,35 +71,32 @@ struct _LogviewLogClass {
   GObjectClass parent_class;
 
   /* signals */
-  void (* log_changed) (LogviewLog *log);
+  void (*log_changed)(LogviewLog *log);
 };
 
-GType logview_log_get_type      (void);
+GType logview_log_get_type(void);
 
 /* public methods */
 
 /* these two do I/O, so they are wrapped async */
-void          logview_log_create                   (const char *filename,
-                                                    LogviewCreateCallback callback,
-                                                    gpointer user_data);
-void          logview_log_create_from_gfile        (GFile *file,
-                                                    LogviewCreateCallback callback,
-                                                    gpointer user_data);
-void          logview_log_read_new_lines           (LogviewLog *log,
-                                                    GCancellable *cancellable,
-                                                    LogviewNewLinesCallback callback,
-                                                    gpointer user_data);
+void logview_log_create(const char *filename, LogviewCreateCallback callback,
+                        gpointer user_data);
+void logview_log_create_from_gfile(GFile *file, LogviewCreateCallback callback,
+                                   gpointer user_data);
+void logview_log_read_new_lines(LogviewLog *log, GCancellable *cancellable,
+                                LogviewNewLinesCallback callback,
+                                gpointer user_data);
 
-const char *  logview_log_get_display_name          (LogviewLog *log);
-time_t        logview_log_get_timestamp             (LogviewLog *log);
-goffset       logview_log_get_file_size             (LogviewLog *log);
-const char ** logview_log_get_cached_lines          (LogviewLog *log);
-guint         logview_log_get_cached_lines_number   (LogviewLog *log);
-GSList *      logview_log_get_days_for_cached_lines (LogviewLog *log);
-gboolean      logview_log_has_new_lines             (LogviewLog *log);
-char *        logview_log_get_uri                   (LogviewLog *log);
-GFile *       logview_log_get_gfile                 (LogviewLog *log);
-gboolean      logview_log_get_has_days              (LogviewLog *log);
+const char *logview_log_get_display_name(LogviewLog *log);
+time_t logview_log_get_timestamp(LogviewLog *log);
+goffset logview_log_get_file_size(LogviewLog *log);
+const char **logview_log_get_cached_lines(LogviewLog *log);
+guint logview_log_get_cached_lines_number(LogviewLog *log);
+GSList *logview_log_get_days_for_cached_lines(LogviewLog *log);
+gboolean logview_log_has_new_lines(LogviewLog *log);
+char *logview_log_get_uri(LogviewLog *log);
+GFile *logview_log_get_gfile(LogviewLog *log);
+gboolean logview_log_get_has_days(LogviewLog *log);
 
 G_END_DECLS
 

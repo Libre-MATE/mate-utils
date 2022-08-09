@@ -33,37 +33,42 @@
 #define __BAOBAB_RINGSCHART_H__
 
 #include <gtk/gtk.h>
+
 #include "baobab-chart.h"
 
 G_BEGIN_DECLS
 
-#define BAOBAB_RINGSCHART_TYPE		(baobab_ringschart_get_type ())
-#define BAOBAB_RINGSCHART(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), BAOBAB_RINGSCHART_TYPE, BaobabRingschart))
-#define BAOBAB_RINGSCHART_CLASS(obj)	(G_TYPE_CHECK_CLASS_CAST ((obj), BAOBAB_RINGSCHART, BaobabRingschartClass))
-#define BAOBAB_IS_RINGSCHART(obj)	(G_TYPE_CHECK_INSTANCE_TYPE ((obj), BAOBAB_RINGSCHART_TYPE))
-#define BAOBAB_IS_RINGSCHART_CLASS(obj)	(G_TYPE_CHECK_CLASS_TYPE ((obj), BAOBAB_RINGSCHART_TYPE))
-#define BAOBAB_RINGSCHART_GET_CLASS	(G_TYPE_INSTANCE_GET_CLASS ((obj), BAOBAB_RINGSCHART_TYPE, BaobabRingschartClass))
+#define BAOBAB_RINGSCHART_TYPE (baobab_ringschart_get_type())
+#define BAOBAB_RINGSCHART(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), BAOBAB_RINGSCHART_TYPE, BaobabRingschart))
+#define BAOBAB_RINGSCHART_CLASS(obj) \
+  (G_TYPE_CHECK_CLASS_CAST((obj), BAOBAB_RINGSCHART, BaobabRingschartClass))
+#define BAOBAB_IS_RINGSCHART(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), BAOBAB_RINGSCHART_TYPE))
+#define BAOBAB_IS_RINGSCHART_CLASS(obj) \
+  (G_TYPE_CHECK_CLASS_TYPE((obj), BAOBAB_RINGSCHART_TYPE))
+#define BAOBAB_RINGSCHART_GET_CLASS                         \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), BAOBAB_RINGSCHART_TYPE, \
+                             BaobabRingschartClass))
 
 typedef struct _BaobabRingschart BaobabRingschart;
 typedef struct _BaobabRingschartClass BaobabRingschartClass;
 typedef struct _BaobabRingschartPrivate BaobabRingschartPrivate;
 
-struct _BaobabRingschart
-{
+struct _BaobabRingschart {
   BaobabChart parent;
 
   BaobabRingschartPrivate *priv;
 };
 
-struct _BaobabRingschartClass
-{
+struct _BaobabRingschartClass {
   BaobabChartClass parent_class;
 };
 
-GType baobab_ringschart_get_type (void) G_GNUC_CONST;
-GtkWidget *baobab_ringschart_new (void);
-void baobab_ringschart_set_subfoldertips_enabled (GtkWidget *chart,
-                                                  gboolean enabled);
+GType baobab_ringschart_get_type(void) G_GNUC_CONST;
+GtkWidget *baobab_ringschart_new(void);
+void baobab_ringschart_set_subfoldertips_enabled(GtkWidget *chart,
+                                                 gboolean enabled);
 
 G_END_DECLS
 

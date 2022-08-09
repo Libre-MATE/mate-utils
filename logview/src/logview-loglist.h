@@ -23,18 +23,18 @@
 
 #define LOGVIEW_TYPE_LOGLIST logview_loglist_get_type()
 #define LOGVIEW_LOGLIST(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_LOGLIST, LogviewLoglist))
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_LOGLIST, LogviewLoglist))
 #define LOGVIEW_LOGLIST_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_LOGLIST, LogviewLogListClass))
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_LOGLIST, LogviewLogListClass))
 #define LOGVIEW_IS_LOGLIST(obj) \
-  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_LOGLIST))
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_LOGLIST))
 #define LOGVIEW_IS_LOGLIST_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_TYPE ((klass), LOGVIEW_TYPE_LOGLIST))
+  (G_TYPE_CHECK_CLASS_TYPE((klass), LOGVIEW_TYPE_LOGLIST))
 #define LOGVIEW_LOGLIST_GET_CLASS(obj) \
-  (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_LOGLIST, LogviewLoglistClass))
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_LOGLIST, LogviewLoglistClass))
 
-#include <gtk/gtk.h>
 #include <glib-object.h>
+#include <gtk/gtk.h>
 
 #include "logview-log.h"
 #include "logview-utils.h"
@@ -49,20 +49,18 @@ struct _LogviewLoglist {
 };
 
 struct _LogviewLoglistClass {
-	GtkTreeViewClass parent_class;
+  GtkTreeViewClass parent_class;
 
-  void (* day_selected) (LogviewLoglist *loglist,
-                         Day *day);
-  void (* day_cleared) (LogviewLoglist *loglist);
+  void (*day_selected)(LogviewLoglist *loglist, Day *day);
+  void (*day_cleared)(LogviewLoglist *loglist);
 };
 
-GType logview_loglist_get_type (void);
+GType logview_loglist_get_type(void);
 
 /* public methods */
-GtkWidget * logview_loglist_new                (void);
-void        logview_loglist_update_lines       (LogviewLoglist *loglist,
-                                                LogviewLog *log);
-GDate *     logview_loglist_get_date_selection (LogviewLoglist *loglist);
-void        logview_loglist_clear_date         (LogviewLoglist *loglist);
+GtkWidget *logview_loglist_new(void);
+void logview_loglist_update_lines(LogviewLoglist *loglist, LogviewLog *log);
+GDate *logview_loglist_get_date_selection(LogviewLoglist *loglist);
+void logview_loglist_clear_date(LogviewLoglist *loglist);
 
 #endif /* __LOGVIEW_LOGLIST_H__ */

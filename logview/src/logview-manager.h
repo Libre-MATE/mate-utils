@@ -30,15 +30,15 @@ G_BEGIN_DECLS
 
 #define LOGVIEW_TYPE_MANAGER logview_manager_get_type()
 #define LOGVIEW_MANAGER(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_MANAGER, LogviewManager))
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_MANAGER, LogviewManager))
 #define LOGVIEW_MANAGER_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_MANAGER, LogviewManagerClass))
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_MANAGER, LogviewManagerClass))
 #define LOGVIEW_IS_MANAGER(obj) \
-  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_MANAGER))
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_MANAGER))
 #define LOGVIEW_IS_MANAGER_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_TYPE ((klass), LOGVIEW_TYPE_MANAGER))
+  (G_TYPE_CHECK_CLASS_TYPE((klass), LOGVIEW_TYPE_MANAGER))
 #define LOGVIEW_MANAGER_GET_CLASS(obj) \
-  (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_MANAGER, LogviewManagerClass))
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_MANAGER, LogviewManagerClass))
 
 typedef struct _LogviewManager LogviewManager;
 typedef struct _LogviewManagerClass LogviewManagerClass;
@@ -52,37 +52,30 @@ struct _LogviewManager {
 struct _LogviewManagerClass {
   GObjectClass parent_class;
 
-  void (* log_added) (LogviewManager *manager,
-                      LogviewLog *log);
-  void (* log_closed) (LogviewManager *manager,
-                       LogviewLog *log);
-  void (* active_changed) (LogviewManager *manager,
-                           LogviewLog *log,
-                           LogviewLog *old_log);
+  void (*log_added)(LogviewManager *manager, LogviewLog *log);
+  void (*log_closed)(LogviewManager *manager, LogviewLog *log);
+  void (*active_changed)(LogviewManager *manager, LogviewLog *log,
+                         LogviewLog *old_log);
 };
 
-GType logview_manager_get_type (void);
+GType logview_manager_get_type(void);
 
 /* public methods */
-LogviewManager* logview_manager_get                 (void);
-void            logview_manager_add_logs_from_name_list (LogviewManager *manager,
-                                                         GSList *names,
-                                                         const char *active);
-void            logview_manager_add_log_from_gfile  (LogviewManager *manager,
-                                                     GFile *file,
-                                                     gboolean set_active);
-void            logview_manager_add_logs_from_names (LogviewManager *manager,
-                                                     char ** names,
-                                                     const gchar *active);
-void            logview_manager_set_active_log      (LogviewManager *manager,
-                                                     LogviewLog *log);
-LogviewLog *    logview_manager_get_active_log      (LogviewManager *manager);
-int             logview_manager_get_log_count       (LogviewManager *manager);
-LogviewLog *    logview_manager_get_if_loaded       (LogviewManager *manager,
-                                                     char *filename);
-gboolean        logview_manager_log_is_active       (LogviewManager *manager,
-                                                     LogviewLog *log);
-void            logview_manager_close_active_log    (LogviewManager *manager);
+LogviewManager *logview_manager_get(void);
+void logview_manager_add_logs_from_name_list(LogviewManager *manager,
+                                             GSList *names, const char *active);
+void logview_manager_add_log_from_gfile(LogviewManager *manager, GFile *file,
+                                        gboolean set_active);
+void logview_manager_add_logs_from_names(LogviewManager *manager, char **names,
+                                         const gchar *active);
+void logview_manager_set_active_log(LogviewManager *manager, LogviewLog *log);
+LogviewLog *logview_manager_get_active_log(LogviewManager *manager);
+int logview_manager_get_log_count(LogviewManager *manager);
+LogviewLog *logview_manager_get_if_loaded(LogviewManager *manager,
+                                          char *filename);
+gboolean logview_manager_log_is_active(LogviewManager *manager,
+                                       LogviewLog *log);
+void logview_manager_close_active_log(LogviewManager *manager);
 
 G_END_DECLS
 

@@ -21,166 +21,135 @@
 #include <config.h>
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <sys/types.h>
 #include <errno.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
-
 #include <gtk/gtk.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
 
 #include "gdict-common.h"
 
-gchar *
-gdict_get_data_dir (void)
-{
+gchar *gdict_get_data_dir(void) {
   gchar *retval;
 
-  retval = g_build_filename (g_get_user_config_dir (),
-		  	     "mate",
-			     "mate-dictionary",
-			     NULL);
+  retval = g_build_filename(g_get_user_config_dir(), "mate", "mate-dictionary",
+                            NULL);
 
   return retval;
 }
 
 /* create the data directory inside $HOME, if it doesn't exist yet */
-gboolean
-gdict_create_data_dir (void)
-{
+gboolean gdict_create_data_dir(void) {
   gchar *data_dir_name;
 
-  data_dir_name = gdict_get_data_dir ();
-  if (g_mkdir_with_parents (data_dir_name, 0700) == -1)
-    {
-      /* this is weird, but sometimes there's a "mate-dictionary" file
-       * inside $HOME/.mate2; see bug #329126.
-       */
-      if ((errno == EEXIST) &&
-          (g_file_test (data_dir_name, G_FILE_TEST_IS_REGULAR)))
-        {
-          gchar *backup = g_strdup_printf ("%s.pre-2-14", data_dir_name);
+  data_dir_name = gdict_get_data_dir();
+  if (g_mkdir_with_parents(data_dir_name, 0700) == -1) {
+    /* this is weird, but sometimes there's a "mate-dictionary" file
+     * inside $HOME/.mate2; see bug #329126.
+     */
+    if ((errno == EEXIST) &&
+        (g_file_test(data_dir_name, G_FILE_TEST_IS_REGULAR))) {
+      gchar *backup = g_strdup_printf("%s.pre-2-14", data_dir_name);
 
-	  if (g_rename (data_dir_name, backup) == -1)
-	    {
-              GtkWidget *error_dialog;
+      if (g_rename(data_dir_name, backup) == -1) {
+        GtkWidget *error_dialog;
 
-	      error_dialog = gtk_message_dialog_new (NULL,
-                                                     GTK_DIALOG_MODAL,
-						     GTK_MESSAGE_ERROR,
-						     GTK_BUTTONS_CLOSE,
-						     _("Unable to rename file '%s' to '%s': %s"),
-						     data_dir_name,
-						     backup,
-						     g_strerror (errno));
+        error_dialog = gtk_message_dialog_new(
+            NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+            _("Unable to rename file '%s' to '%s': %s"), data_dir_name, backup,
+            g_strerror(errno));
 
-	      gtk_dialog_run (GTK_DIALOG (error_dialog));
+        gtk_dialog_run(GTK_DIALOG(error_dialog));
 
-	      gtk_widget_destroy (error_dialog);
-	      g_free (backup);
-	      g_free (data_dir_name);
+        gtk_widget_destroy(error_dialog);
+        g_free(backup);
+        g_free(data_dir_name);
 
-	      return FALSE;
-            }
+        return FALSE;
+      }
 
-	  g_free (backup);
+      g_free(backup);
 
-          if (g_mkdir_with_parents (data_dir_name, 0700) == -1)
-            {
-              GtkWidget *error_dialog;
+      if (g_mkdir_with_parents(data_dir_name, 0700) == -1) {
+        GtkWidget *error_dialog;
 
-	      error_dialog = gtk_message_dialog_new (NULL,
-						     GTK_DIALOG_MODAL,
-						     GTK_MESSAGE_ERROR,
-						     GTK_BUTTONS_CLOSE,
-						     _("Unable to create the data directory '%s': %s"),
-						     data_dir_name,
-						     g_strerror (errno));
+        error_dialog = gtk_message_dialog_new(
+            NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+            _("Unable to create the data directory '%s': %s"), data_dir_name,
+            g_strerror(errno));
 
-	      gtk_dialog_run (GTK_DIALOG (error_dialog));
+        gtk_dialog_run(GTK_DIALOG(error_dialog));
 
-	      gtk_widget_destroy (error_dialog);
-              g_free (data_dir_name);
+        gtk_widget_destroy(error_dialog);
+        g_free(data_dir_name);
 
-	      return FALSE;
-            }
+        return FALSE;
+      }
 
-	  goto success;
-	}
-
-      if (errno != EEXIST)
-        {
-          GtkWidget *error_dialog;
-
-	  error_dialog = gtk_message_dialog_new (NULL,
-						 GTK_DIALOG_MODAL,
-						 GTK_MESSAGE_ERROR,
-						 GTK_BUTTONS_CLOSE,
-						 _("Unable to create the data directory '%s': %s"),
-						 data_dir_name,
-						 g_strerror (errno));
-
-	  gtk_dialog_run (GTK_DIALOG (error_dialog));
-
-	  gtk_widget_destroy (error_dialog);
-	  g_free (data_dir_name);
-
-	  return FALSE;
-	}
+      goto success;
     }
 
+    if (errno != EEXIST) {
+      GtkWidget *error_dialog;
+
+      error_dialog = gtk_message_dialog_new(
+          NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+          _("Unable to create the data directory '%s': %s"), data_dir_name,
+          g_strerror(errno));
+
+      gtk_dialog_run(GTK_DIALOG(error_dialog));
+
+      gtk_widget_destroy(error_dialog);
+      g_free(data_dir_name);
+
+      return FALSE;
+    }
+  }
+
 success:
-  g_free (data_dir_name);
+  g_free(data_dir_name);
 
   return TRUE;
 }
 
 /* shows an error dialog making it transient for @parent */
-void
-gdict_show_error_dialog (GtkWindow   *parent,
-			 const gchar *message,
-			 const gchar *detail)
-{
+void gdict_show_error_dialog(GtkWindow *parent, const gchar *message,
+                             const gchar *detail) {
   GtkWidget *dialog;
 
-  g_return_if_fail ((parent == NULL) || (GTK_IS_WINDOW (parent)));
-  g_return_if_fail (message != NULL);
+  g_return_if_fail((parent == NULL) || (GTK_IS_WINDOW(parent)));
+  g_return_if_fail(message != NULL);
 
-  dialog = gtk_message_dialog_new (parent,
-  				   GTK_DIALOG_DESTROY_WITH_PARENT,
-  				   GTK_MESSAGE_ERROR,
-  				   GTK_BUTTONS_OK,
-  				   "%s", message);
-  gtk_window_set_title (GTK_WINDOW (dialog), "");
+  dialog =
+      gtk_message_dialog_new(parent, GTK_DIALOG_DESTROY_WITH_PARENT,
+                             GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", message);
+  gtk_window_set_title(GTK_WINDOW(dialog), "");
 
   if (detail)
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-  					      "%s", detail);
+    gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s",
+                                             detail);
 
-  if (parent && gtk_window_get_group (parent))
-    gtk_window_group_add_window (gtk_window_get_group (parent), GTK_WINDOW (dialog));
+  if (parent && gtk_window_get_group(parent))
+    gtk_window_group_add_window(gtk_window_get_group(parent),
+                                GTK_WINDOW(dialog));
 
-  gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_dialog_run(GTK_DIALOG(dialog));
 
-  gtk_widget_destroy (dialog);
+  gtk_widget_destroy(dialog);
 }
 
-void
-gdict_show_gerror_dialog (GtkWindow   *parent,
-			  const gchar *message,
-			  GError      *error)
-{
-  g_return_if_fail ((parent == NULL) || (GTK_IS_WINDOW (parent)));
-  g_return_if_fail (message != NULL);
-  g_return_if_fail (error != NULL);
+void gdict_show_gerror_dialog(GtkWindow *parent, const gchar *message,
+                              GError *error) {
+  g_return_if_fail((parent == NULL) || (GTK_IS_WINDOW(parent)));
+  g_return_if_fail(message != NULL);
+  g_return_if_fail(error != NULL);
 
-  gdict_show_error_dialog (parent, message, error->message);
+  gdict_show_error_dialog(parent, message, error->message);
 
-  g_error_free (error);
+  g_error_free(error);
   error = NULL;
 }

@@ -20,17 +20,17 @@
 #ifndef __GDICT_H__
 #define __GDICT_H__
 
-#include "gdict-context.h"
 #include "gdict-client-context.h"
-#include "gdict-source.h"
-#include "gdict-source-loader.h"
-#include "gdict-source-chooser.h"
+#include "gdict-context.h"
 #include "gdict-database-chooser.h"
 #include "gdict-defbox.h"
+#include "gdict-enum-types.h"
+#include "gdict-source-chooser.h"
+#include "gdict-source-loader.h"
+#include "gdict-source.h"
 #include "gdict-speller.h"
 #include "gdict-strategy-chooser.h"
 #include "gdict-utils.h"
-#include "gdict-enum-types.h"
 #include "gdict-version.h"
 
 #endif /* __GDICT_H__ */

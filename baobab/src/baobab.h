@@ -20,11 +20,11 @@
 #ifndef __BAOBAB_H__
 #define __BAOBAB_H__
 
-#include <time.h>
-#include <sys/types.h>
+#include <gio/gio.h>
 #include <glib.h>
 #include <gtk/gtk.h>
-#include <gio/gio.h>
+#include <sys/types.h>
+#include <time.h>
 
 struct BaobabSearchOpt;
 
@@ -41,85 +41,85 @@ struct BaobabSearchOpt;
 typedef struct _BaobabChartMenu BaobabChartMenu;
 
 struct _BaobabChartMenu {
-	GtkWidget *widget;
-	GtkWidget *up_item;
-	GtkWidget *zoom_in_item;
-	GtkWidget *zoom_out_item;
-	GtkWidget *subfolders_item;
-	GtkWidget *snapshot_item;
-	GtkWidget *set_root_item;
+  GtkWidget *widget;
+  GtkWidget *up_item;
+  GtkWidget *zoom_in_item;
+  GtkWidget *zoom_out_item;
+  GtkWidget *subfolders_item;
+  GtkWidget *snapshot_item;
+  GtkWidget *set_root_item;
 };
 
 typedef struct _BaobabFS BaobabFS;
 
 struct _BaobabFS {
-	guint64 total;
-	guint64 used;
-	guint64 avail;
+  guint64 total;
+  guint64 used;
+  guint64 avail;
 };
 
 typedef struct _BaobabApplication BaobabApplication;
 
 struct _BaobabApplication {
-	BaobabFS fs;
+  BaobabFS fs;
 
-	GtkBuilder *main_ui;
-	GtkWidget *window;
-	GtkWidget *tree_view;
-	GtkWidget *chart_frame;
-	GtkWidget *rings_chart;
-	GtkWidget *treemap_chart;
-	GtkWidget *current_chart;
-	GtkWidget *chart_type_combo;
-	BaobabChartMenu *chart_menu;
-	GtkWidget *toolbar;
-	GtkWidget *spinner;
-	GtkWidget *statusbar;
-	GtkTreeStore *model;
-	gboolean STOP_SCANNING;
-	gboolean CONTENTS_CHANGED_DELAYED;
-	GSList *excluded_locations;
-	gboolean show_allocated;
-	gboolean is_local;
+  GtkBuilder *main_ui;
+  GtkWidget *window;
+  GtkWidget *tree_view;
+  GtkWidget *chart_frame;
+  GtkWidget *rings_chart;
+  GtkWidget *treemap_chart;
+  GtkWidget *current_chart;
+  GtkWidget *chart_type_combo;
+  BaobabChartMenu *chart_menu;
+  GtkWidget *toolbar;
+  GtkWidget *spinner;
+  GtkWidget *statusbar;
+  GtkTreeStore *model;
+  gboolean STOP_SCANNING;
+  gboolean CONTENTS_CHANGED_DELAYED;
+  GSList *excluded_locations;
+  gboolean show_allocated;
+  gboolean is_local;
 
-	char *selected_path;
+  char *selected_path;
 
-	GFile *current_location;
+  GFile *current_location;
 
-	GVolumeMonitor *monitor_vol;
-	GFileMonitor *monitor_home;
+  GVolumeMonitor *monitor_vol;
+  GFileMonitor *monitor_home;
 
-	guint model_max_depth;
+  guint model_max_depth;
 
-	GSettings *ui_settings;
-	GSettings *prefs_settings;
+  GSettings *ui_settings;
+  GSettings *prefs_settings;
 };
 
 /* Application singleton */
 extern BaobabApplication baobab;
 
 struct chan_data {
-	guint64 size;
-	guint64 alloc_size;
-	guint64 tempHLsize;
-	gint depth;
-	gint elements;
-	gchar *display_name;
-	gchar *parse_name;
+  guint64 size;
+  guint64 alloc_size;
+  guint64 tempHLsize;
+  gint depth;
+  gint elements;
+  gchar *display_name;
+  gchar *parse_name;
 };
 
-void baobab_set_busy (gboolean busy);
-void baobab_update_filesystem (void);
-void baobab_scan_location (GFile *);
-void baobab_scan_home (void);
-void baobab_scan_root (void);
-void baobab_rescan_current_dir (void);
-void baobab_stop_scan (void);
-void baobab_fill_model (struct chan_data *);
-gboolean baobab_is_excluded_location (GFile *);
-void baobab_set_toolbar_visible (gboolean visible);
-void baobab_set_statusbar_visible (gboolean visible);
-void baobab_set_statusbar (const gchar *);
-void baobab_quit (void);
+void baobab_set_busy(gboolean busy);
+void baobab_update_filesystem(void);
+void baobab_scan_location(GFile *);
+void baobab_scan_home(void);
+void baobab_scan_root(void);
+void baobab_rescan_current_dir(void);
+void baobab_stop_scan(void);
+void baobab_fill_model(struct chan_data *);
+gboolean baobab_is_excluded_location(GFile *);
+void baobab_set_toolbar_visible(gboolean visible);
+void baobab_set_statusbar_visible(gboolean visible);
+void baobab_set_statusbar(const gchar *);
+void baobab_quit(void);
 
 #endif /* __BAOBAB_H_ */

@@ -24,15 +24,13 @@
 
 G_BEGIN_DECLS
 
-gboolean gdict_create_data_dir (void);
-gchar *  gdict_get_data_dir    (void) G_GNUC_MALLOC;
+gboolean gdict_create_data_dir(void);
+gchar *gdict_get_data_dir(void) G_GNUC_MALLOC;
 
-void     gdict_show_error_dialog  (GtkWindow   *parent,
-				   const gchar *message,
-				   const gchar *detail);
-void     gdict_show_gerror_dialog (GtkWindow   *parent,
-				   const gchar *message,
-				   GError      *error);
+void gdict_show_error_dialog(GtkWindow *parent, const gchar *message,
+                             const gchar *detail);
+void gdict_show_gerror_dialog(GtkWindow *parent, const gchar *message,
+                              GError *error);
 
 G_END_DECLS
 

@@ -22,6 +22,6 @@
 
 #include <gio/gio.h>
 
-void baobab_scan_execute (GFile *location);
+void baobab_scan_execute(GFile *location);
 
 #endif /* __BAOBAB_SCAN_H__ */

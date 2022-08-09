@@ -25,15 +25,15 @@
 
 #define LOGVIEW_TYPE_PREFS logview_prefs_get_type()
 #define LOGVIEW_PREFS(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_PREFS, LogviewPrefs))
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_PREFS, LogviewPrefs))
 #define LOGVIEW_PREFS_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_PREFS, LogviewPrefsClass))
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_PREFS, LogviewPrefsClass))
 #define LOGVIEW_IS_PREFS(obj) \
-  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_PREFS))
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_PREFS))
 #define LOGVIEW_IS_PREFS_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_TYPE ((klass), LOGVIEW_TYPE_PREFS))
+  (G_TYPE_CHECK_CLASS_TYPE((klass), LOGVIEW_TYPE_PREFS))
 #define LOGVIEW_PREFS_GET_CLASS(obj) \
-  (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_PREFS, LogviewPrefsClass))
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_PREFS, LogviewPrefsClass))
 
 typedef struct _LogviewPrefs LogviewPrefs;
 typedef struct _LogviewPrefsClass LogviewPrefsClass;
@@ -48,42 +48,34 @@ struct _LogviewPrefsClass {
   GObjectClass parent_class;
 
   /* signals */
-  void (* system_font_changed)  (LogviewPrefs *prefs,
-                                 const char *font_name);
-  void (* have_tearoff_changed) (LogviewPrefs *prefs,
-                                 gboolean have_tearoff);
-  void (* filters_changed)      (LogviewPrefs *prefs);
+  void (*system_font_changed)(LogviewPrefs *prefs, const char *font_name);
+  void (*have_tearoff_changed)(LogviewPrefs *prefs, gboolean have_tearoff);
+  void (*filters_changed)(LogviewPrefs *prefs);
 };
 
-GType          logview_prefs_get_type (void);
+GType logview_prefs_get_type(void);
 
 /* public methods */
 
-LogviewPrefs *  logview_prefs_get (void);
-void            logview_prefs_store_window_size       (LogviewPrefs *prefs,
-                                                       int width, int height);
-void            logview_prefs_get_stored_window_size  (LogviewPrefs *prefs,
-                                                       int *width, int *height);
-char *          logview_prefs_get_monospace_font_name (LogviewPrefs *prefs);
-gboolean        logview_prefs_get_have_tearoff        (LogviewPrefs *prefs);
-void            logview_prefs_store_log               (LogviewPrefs *prefs,
-                                                       GFile *file);
-void            logview_prefs_remove_stored_log       (LogviewPrefs *prefs,
-                                                       GFile *target);
-gchar **        logview_prefs_get_stored_logfiles     (LogviewPrefs *prefs);
-void            logview_prefs_store_fontsize          (LogviewPrefs *prefs,
-                                                       int fontsize);
-int             logview_prefs_get_stored_fontsize     (LogviewPrefs *prefs);
-void            logview_prefs_store_active_logfile    (LogviewPrefs *prefs,
-                                                       const char *filename);
-char *          logview_prefs_get_active_logfile      (LogviewPrefs *prefs);
+LogviewPrefs *logview_prefs_get(void);
+void logview_prefs_store_window_size(LogviewPrefs *prefs, int width,
+                                     int height);
+void logview_prefs_get_stored_window_size(LogviewPrefs *prefs, int *width,
+                                          int *height);
+char *logview_prefs_get_monospace_font_name(LogviewPrefs *prefs);
+gboolean logview_prefs_get_have_tearoff(LogviewPrefs *prefs);
+void logview_prefs_store_log(LogviewPrefs *prefs, GFile *file);
+void logview_prefs_remove_stored_log(LogviewPrefs *prefs, GFile *target);
+gchar **logview_prefs_get_stored_logfiles(LogviewPrefs *prefs);
+void logview_prefs_store_fontsize(LogviewPrefs *prefs, int fontsize);
+int logview_prefs_get_stored_fontsize(LogviewPrefs *prefs);
+void logview_prefs_store_active_logfile(LogviewPrefs *prefs,
+                                        const char *filename);
+char *logview_prefs_get_active_logfile(LogviewPrefs *prefs);
 
-GList *         logview_prefs_get_filters             (LogviewPrefs *prefs);
-void            logview_prefs_remove_filter           (LogviewPrefs *prefs,
-                                                       const gchar* name);
-void            logview_prefs_add_filter              (LogviewPrefs *prefs,
-                                                       LogviewFilter *filter);
-LogviewFilter * logview_prefs_get_filter              (LogviewPrefs *prefs,
-                                                       const gchar *name);
+GList *logview_prefs_get_filters(LogviewPrefs *prefs);
+void logview_prefs_remove_filter(LogviewPrefs *prefs, const gchar *name);
+void logview_prefs_add_filter(LogviewPrefs *prefs, LogviewFilter *filter);
+LogviewFilter *logview_prefs_get_filter(LogviewPrefs *prefs, const gchar *name);
 
 #endif /* __LOG_PREFS_H__ */

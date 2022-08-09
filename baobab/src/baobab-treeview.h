@@ -23,22 +23,22 @@
 #include <gtk/gtk.h>
 
 /* tree model columns (_H_ are hidden) */
-enum
-{
-	COL_DIR_NAME,
-	COL_H_PARSENAME,
-	COL_H_PERC,
-	COL_DIR_SIZE,
-	COL_H_SIZE,
-	COL_H_ALLOCSIZE,
-	COL_ELEMENTS,
-	COL_H_ELEMENTS,
-	COL_HARDLINK,
-	COL_H_HARDLINK,
-	NUM_TREE_COLUMNS
+enum {
+  COL_DIR_NAME,
+  COL_H_PARSENAME,
+  COL_H_PERC,
+  COL_DIR_SIZE,
+  COL_H_SIZE,
+  COL_H_ALLOCSIZE,
+  COL_ELEMENTS,
+  COL_H_ELEMENTS,
+  COL_HARDLINK,
+  COL_H_HARDLINK,
+  NUM_TREE_COLUMNS
 };
 
-GtkWidget *create_directory_treeview (void);
-void baobab_treeview_show_allocated_size (GtkWidget *tv, gboolean show_allocated);
+GtkWidget *create_directory_treeview(void);
+void baobab_treeview_show_allocated_size(GtkWidget *tv,
+                                         gboolean show_allocated);
 
 #endif /* __BAOBAB_TV_H__ */

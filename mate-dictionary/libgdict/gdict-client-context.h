@@ -22,17 +22,24 @@
 
 #include "gdict-context.h"
 
-#define GDICT_TYPE_CLIENT_CONTEXT		(gdict_client_context_get_type ())
-#define GDICT_CLIENT_CONTEXT(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GDICT_TYPE_CLIENT_CONTEXT, GdictClientContext))
-#define GDICT_IS_CLIENT_CONTEXT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GDICT_TYPE_CLIENT_CONTEXT))
-#define GDICT_CLIENT_CONTEXT_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), GDICT_TYPE_CLIENT_CONTEXT, GdictClientContextClass))
-#define GDICT_CLIENT_CONTEXT_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GDICT_TYPE_CLIENT_CONTEXT, GdictClientContextClass))
+#define GDICT_TYPE_CLIENT_CONTEXT (gdict_client_context_get_type())
+#define GDICT_CLIENT_CONTEXT(obj)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), GDICT_TYPE_CLIENT_CONTEXT, \
+                              GdictClientContext))
+#define GDICT_IS_CLIENT_CONTEXT(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GDICT_TYPE_CLIENT_CONTEXT))
+#define GDICT_CLIENT_CONTEXT_CLASS(klass)                      \
+  (G_TYPE_CHECK_CLASS_CAST((klass), GDICT_TYPE_CLIENT_CONTEXT, \
+                           GdictClientContextClass))
+#define GDICT_CLIENT_CONTEXT_GET_CLASS(obj)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), GDICT_TYPE_CLIENT_CONTEXT, \
+                             GdictClientContextClass))
 
-typedef struct _GdictClientContext        GdictClientContext;
-typedef struct _GdictClientContextClass   GdictClientContextClass;
+typedef struct _GdictClientContext GdictClientContext;
+typedef struct _GdictClientContextClass GdictClientContextClass;
 typedef struct _GdictClientContextPrivate GdictClientContextPrivate;
 
-#define GDICT_CLIENT_CONTEXT_ERROR	(gdict_client_context_error_quark ())
+#define GDICT_CLIENT_CONTEXT_ERROR (gdict_client_context_error_quark())
 
 /**
  * GdictClientContextError:
@@ -50,18 +57,16 @@ typedef enum {
   GDICT_CLIENT_CONTEXT_ERROR_SERVER_DOWN
 } GdictClientContextError;
 
-GQuark gdict_client_context_error_quark (void);
+GQuark gdict_client_context_error_quark(void);
 
-struct _GdictClientContext
-{
+struct _GdictClientContext {
   /*< private >*/
   GObject parent_instance;
 
   GdictClientContextPrivate *priv;
 };
 
-struct _GdictClientContextClass
-{
+struct _GdictClientContextClass {
   /*< private >*/
   GObjectClass parent_class;
 
@@ -69,30 +74,28 @@ struct _GdictClientContextClass
   /* signals monitoring the lifetime of the connection with
    * the dictionary server
    */
-  void (*connected)    (GdictClientContext *context);
-  void (*disconnected) (GdictClientContext *context);
+  void (*connected)(GdictClientContext *context);
+  void (*disconnected)(GdictClientContext *context);
 
   /*< private >*/
   /* padding for future expansion */
-  void (*_gdict_client_1) (void);
-  void (*_gdict_client_2) (void);
-  void (*_gdict_client_3) (void);
-  void (*_gdict_client_4) (void);
+  void (*_gdict_client_1)(void);
+  void (*_gdict_client_2)(void);
+  void (*_gdict_client_3)(void);
+  void (*_gdict_client_4)(void);
 };
 
-GType                 gdict_client_context_get_type     (void) G_GNUC_CONST;
+GType gdict_client_context_get_type(void) G_GNUC_CONST;
 
-GdictContext *        gdict_client_context_new          (const gchar        *hostname,
-							 gint                port);
+GdictContext *gdict_client_context_new(const gchar *hostname, gint port);
 
-void                  gdict_client_context_set_hostname (GdictClientContext *context,
-						         const gchar        *hostname);
-const gchar *gdict_client_context_get_hostname (GdictClientContext *context);
-void                  gdict_client_context_set_port     (GdictClientContext *context,
-							 gint                port);
-guint                 gdict_client_context_get_port     (GdictClientContext *context);
-void                  gdict_client_context_set_client   (GdictClientContext *context,
-							 const gchar        *client);
-const gchar *gdict_client_context_get_client   (GdictClientContext *context);
+void gdict_client_context_set_hostname(GdictClientContext *context,
+                                       const gchar *hostname);
+const gchar *gdict_client_context_get_hostname(GdictClientContext *context);
+void gdict_client_context_set_port(GdictClientContext *context, gint port);
+guint gdict_client_context_get_port(GdictClientContext *context);
+void gdict_client_context_set_client(GdictClientContext *context,
+                                     const gchar *client);
+const gchar *gdict_client_context_get_client(GdictClientContext *context);
 
 #endif /* __GDICT_CLIENT_CONTEXT_H__ */

@@ -21,23 +21,22 @@
 #ifndef __LOGVIEW_FINDBAR_H__
 #define __LOGVIEW_FINDBAR_H__
 
-#include <gtk/gtk.h>
 #include <glib-object.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define LOGVIEW_TYPE_FINDBAR \
-  (logview_findbar_get_type ())
+#define LOGVIEW_TYPE_FINDBAR (logview_findbar_get_type())
 #define LOGVIEW_FINDBAR(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_FINDBAR, LogviewFindbar))
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_FINDBAR, LogviewFindbar))
 #define LOGVIEW_FINDBAR_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_FINDBAR, LogviewFindbarClass))
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_FINDBAR, LogviewFindbarClass))
 #define LOGVIEW_IS_FINDBAR(obj) \
-  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_FINDBAR))
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_FINDBAR))
 #define LOGVIEW_IS_FINDBAR_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_TYPE ((obj), LOGVIEW_TYPE_FINDBAR))
+  (G_TYPE_CHECK_CLASS_TYPE((obj), LOGVIEW_TYPE_FINDBAR))
 #define LOGVIEW_FINDBAR_GET_CLASS(obj) \
-  (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_FINDBAR, LogviewFindbarClass))
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_FINDBAR, LogviewFindbarClass))
 
 typedef struct _LogviewFindbar LogviewFindbar;
 typedef struct _LogviewFindbarClass LogviewFindbarClass;
@@ -52,20 +51,19 @@ struct _LogviewFindbarClass {
   GtkToolbarClass parent_class;
 
   /* signals */
-  void (* previous)     (LogviewFindbar *findbar);
-  void (* next)         (LogviewFindbar *findbar);
-  void (* close)        (LogviewFindbar *findbar);
-  void (* text_changed) (LogviewFindbar *findbar);
+  void (*previous)(LogviewFindbar *findbar);
+  void (*next)(LogviewFindbar *findbar);
+  void (*close)(LogviewFindbar *findbar);
+  void (*text_changed)(LogviewFindbar *findbar);
 };
 
-GType logview_findbar_get_type (void);
+GType logview_findbar_get_type(void);
 
 /* public methods */
-GtkWidget *  logview_findbar_new         (void);
-void         logview_findbar_open        (LogviewFindbar *findbar);
-const char * logview_findbar_get_text    (LogviewFindbar *findbar);
-void         logview_findbar_set_message (LogviewFindbar *findbar,
-                                          const char *message);
+GtkWidget *logview_findbar_new(void);
+void logview_findbar_open(LogviewFindbar *findbar);
+const char *logview_findbar_get_text(LogviewFindbar *findbar);
+void logview_findbar_set_message(LogviewFindbar *findbar, const char *message);
 
 G_END_DECLS
 

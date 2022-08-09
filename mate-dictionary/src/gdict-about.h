@@ -22,6 +22,6 @@
 
 #include <gtk/gtk.h>
 
-void gdict_show_about_dialog (GtkWidget *parent);
+void gdict_show_about_dialog(GtkWidget *parent);
 
 #endif /* __GDICT_ABOUT_H__ */

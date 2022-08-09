@@ -21,66 +21,64 @@
 #define __GDICT_SPELLER_H__
 
 #include <gtk/gtk.h>
+
 #include "gdict-context.h"
 
 G_BEGIN_DECLS
 
-#define GDICT_TYPE_SPELLER 		(gdict_speller_get_type ())
-#define GDICT_SPELLER(obj) 		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GDICT_TYPE_SPELLER, GdictSpeller))
-#define GDICT_SPELLER_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), GDICT_TYPE_SPELLER, GdictSpellerClass))
-#define GDICT_IS_SPELLER(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GDICT_TYPE_SPELLER))
-#define GDICT_IS_SPELLER_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), GDICT_TYPE_SPELLER))
-#define GDICT_SPELLER_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS ((obj), GDICT_TYPE_SPELLER, GdictSpellerClass))
+#define GDICT_TYPE_SPELLER (gdict_speller_get_type())
+#define GDICT_SPELLER(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), GDICT_TYPE_SPELLER, GdictSpeller))
+#define GDICT_SPELLER_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_CAST((klass), GDICT_TYPE_SPELLER, GdictSpellerClass))
+#define GDICT_IS_SPELLER(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GDICT_TYPE_SPELLER))
+#define GDICT_IS_SPELLER_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_TYPE((klass), GDICT_TYPE_SPELLER))
+#define GDICT_SPELLER_GET_CLASS(obj) \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), GDICT_TYPE_SPELLER, GdictSpellerClass))
 
-typedef struct _GdictSpeller		GdictSpeller;
-typedef struct _GdictSpellerPrivate	GdictSpellerPrivate;
-typedef struct _GdictSpellerClass	GdictSpellerClass;
+typedef struct _GdictSpeller GdictSpeller;
+typedef struct _GdictSpellerPrivate GdictSpellerPrivate;
+typedef struct _GdictSpellerClass GdictSpellerClass;
 
-struct _GdictSpeller
-{
+struct _GdictSpeller {
   GtkBox parent_instance;
 
   /*< private >*/
   GdictSpellerPrivate *priv;
 };
 
-struct _GdictSpellerClass
-{
+struct _GdictSpellerClass {
   GtkBoxClass parent_class;
 
-  void (*word_activated) (GdictSpeller *speller,
-		          const gchar  *word,
-			  const gchar  *database);
+  void (*word_activated)(GdictSpeller *speller, const gchar *word,
+                         const gchar *database);
 
   /* padding for future expansion */
-  void (*_gdict_speller_1) (void);
-  void (*_gdict_speller_2) (void);
-  void (*_gdict_speller_3) (void);
-  void (*_gdict_speller_4) (void);
+  void (*_gdict_speller_1)(void);
+  void (*_gdict_speller_2)(void);
+  void (*_gdict_speller_3)(void);
+  void (*_gdict_speller_4)(void);
 };
 
-GType                 gdict_speller_get_type         (void) G_GNUC_CONST;
+GType gdict_speller_get_type(void) G_GNUC_CONST;
 
-GtkWidget *           gdict_speller_new              (void);
-GtkWidget *           gdict_speller_new_with_context (GdictContext *context);
+GtkWidget *gdict_speller_new(void);
+GtkWidget *gdict_speller_new_with_context(GdictContext *context);
 
-void                  gdict_speller_set_context      (GdictSpeller *speller,
-						      GdictContext *context);
-GdictContext *        gdict_speller_get_context      (GdictSpeller *speller);
-void                  gdict_speller_set_database     (GdictSpeller *speller,
-						      const gchar *database);
-const gchar *gdict_speller_get_database     (GdictSpeller *speller);
-void                  gdict_speller_set_strategy     (GdictSpeller *speller,
-						      const gchar  *strategy);
-const gchar *gdict_speller_get_strategy     (GdictSpeller *speller);
+void gdict_speller_set_context(GdictSpeller *speller, GdictContext *context);
+GdictContext *gdict_speller_get_context(GdictSpeller *speller);
+void gdict_speller_set_database(GdictSpeller *speller, const gchar *database);
+const gchar *gdict_speller_get_database(GdictSpeller *speller);
+void gdict_speller_set_strategy(GdictSpeller *speller, const gchar *strategy);
+const gchar *gdict_speller_get_strategy(GdictSpeller *speller);
 
-void                  gdict_speller_clear            (GdictSpeller *speller);
-void                  gdict_speller_match            (GdictSpeller *speller,
-						      const gchar  *word);
+void gdict_speller_clear(GdictSpeller *speller);
+void gdict_speller_match(GdictSpeller *speller, const gchar *word);
 
-gint                  gdict_speller_count_matches    (GdictSpeller *speller);
-gchar **              gdict_speller_get_matches      (GdictSpeller *speller,
-						      gsize         length);
+gint gdict_speller_count_matches(GdictSpeller *speller);
+gchar **gdict_speller_get_matches(GdictSpeller *speller, gsize length);
 
 G_END_DECLS
 

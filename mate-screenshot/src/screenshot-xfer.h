@@ -21,25 +21,21 @@
 #ifndef __SCREENSHOT_XFER_H__
 #define __SCREENSHOT_XFER_H__
 
-#include <gtk/gtk.h>
 #include <gio/gio.h>
+#include <gtk/gtk.h>
 
-typedef enum
-{
+typedef enum {
   TRANSFER_OK,
   TRANSFER_OVERWRITE,
   TRANSFER_CANCELLED,
   TRANSFER_ERROR
 } TransferResult;
 
-typedef void (* TransferCallback) (TransferResult result,
-                                   char *error_message,
-                                   gpointer data);
+typedef void (*TransferCallback)(TransferResult result, char *error_message,
+                                 gpointer data);
 
-void screenshot_xfer_uri (GFile *source_file,
-                          GFile *target_file,
-                          GtkWidget *parent,
-                          TransferCallback done_callback,
-                          gpointer done_callback_data);
+void screenshot_xfer_uri(GFile *source_file, GFile *target_file,
+                         GtkWidget *parent, TransferCallback done_callback,
+                         gpointer done_callback_data);
 
 #endif /* __SCREENSHOT_XFER_H__ */

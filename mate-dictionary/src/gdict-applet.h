@@ -21,27 +21,28 @@
 #define __GDICT_APPLET_H__
 
 #include <gtk/gtk.h>
-#include <mate-panel-applet.h>
 #include <libgdict/gdict.h>
+#include <mate-panel-applet.h>
 
 G_BEGIN_DECLS
 
-#define GDICT_TYPE_APPLET		(gdict_applet_get_type ())
-#define GDICT_APPLET(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), GDICT_TYPE_APPLET, GdictApplet))
-#define GDICT_IS_APPLET(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GDICT_TYPE_APPLET))
+#define GDICT_TYPE_APPLET (gdict_applet_get_type())
+#define GDICT_APPLET(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), GDICT_TYPE_APPLET, GdictApplet))
+#define GDICT_IS_APPLET(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GDICT_TYPE_APPLET))
 
-typedef struct _GdictApplet        GdictApplet;
-typedef struct _GdictAppletClass   GdictAppletClass;
+typedef struct _GdictApplet GdictApplet;
+typedef struct _GdictAppletClass GdictAppletClass;
 typedef struct _GdictAppletPrivate GdictAppletPrivate;
 
-struct _GdictApplet
-{
+struct _GdictApplet {
   MatePanelApplet parent_instance;
 
   GdictAppletPrivate *priv;
 };
 
-GType gdict_applet_get_type (void);
+GType gdict_applet_get_type(void);
 
 G_END_DECLS
 

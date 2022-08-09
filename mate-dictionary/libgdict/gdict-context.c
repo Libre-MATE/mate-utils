@@ -42,49 +42,42 @@
 
 #include <glib/gi18n-lib.h>
 
+#include "gdict-context-private.h"
 #include "gdict-context.h"
 #include "gdict-enum-types.h"
-#include "gdict-utils.h"
 #include "gdict-marshal.h"
-#include "gdict-context-private.h"
 #include "gdict-private.h"
+#include "gdict-utils.h"
 
-static void gdict_context_class_init (gpointer g_iface, void *user_data);
+static void gdict_context_class_init(gpointer g_iface, void *user_data);
 
-GType
-gdict_context_get_type (void)
-{
+GType gdict_context_get_type(void) {
   static GType context_type = 0;
 
-  if (G_UNLIKELY (context_type == 0))
-    {
-      static GTypeInfo context_info =
-      {
-        sizeof (GdictContextIface),
-        NULL,                       /* base_init */
-        NULL,                       /* base_finalize */
-        (GClassInitFunc) gdict_context_class_init,
-        NULL,                       /* class_finalize */
-        NULL,                       /* class_data */
-        0,                          /* instance_size */
-        0,                          /* n_preallocs */
-        NULL,                       /* instance_init */
-        NULL                        /* value_table */
-      };
+  if (G_UNLIKELY(context_type == 0)) {
+    static GTypeInfo context_info = {
+        sizeof(GdictContextIface),
+        NULL, /* base_init */
+        NULL, /* base_finalize */
+        (GClassInitFunc)gdict_context_class_init,
+        NULL, /* class_finalize */
+        NULL, /* class_data */
+        0,    /* instance_size */
+        0,    /* n_preallocs */
+        NULL, /* instance_init */
+        NULL  /* value_table */
+    };
 
-      context_type = g_type_register_static (G_TYPE_INTERFACE,
-      					     "GdictContext",
-      					     &context_info, 0);
-      g_type_interface_add_prerequisite (context_type, G_TYPE_OBJECT);
-    }
+    context_type = g_type_register_static(G_TYPE_INTERFACE, "GdictContext",
+                                          &context_info, 0);
+    g_type_interface_add_prerequisite(context_type, G_TYPE_OBJECT);
+  }
 
   return context_type;
 }
 
-static void
-gdict_context_class_init (gpointer g_iface, void *user_data)
-{
-  GType iface_type = G_TYPE_FROM_INTERFACE (g_iface);
+static void gdict_context_class_init(gpointer g_iface, void *user_data) {
+  GType iface_type = G_TYPE_FROM_INTERFACE(g_iface);
 
   /**
    * GdictContext::lookup-start
@@ -97,13 +90,9 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_signal_new ("lookup-start",
-                iface_type,
-                G_SIGNAL_RUN_LAST,
-                G_STRUCT_OFFSET (GdictContextIface, lookup_start),
-                NULL, NULL,
-                gdict_marshal_VOID__VOID,
-                G_TYPE_NONE, 0);
+  g_signal_new("lookup-start", iface_type, G_SIGNAL_RUN_LAST,
+               G_STRUCT_OFFSET(GdictContextIface, lookup_start), NULL, NULL,
+               gdict_marshal_VOID__VOID, G_TYPE_NONE, 0);
   /**
    * GdictContext::lookup-end
    * @context: the object which received the signal
@@ -115,14 +104,10 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_signal_new ("lookup-end",
-                iface_type,
-                G_SIGNAL_RUN_LAST,
-                G_STRUCT_OFFSET (GdictContextIface, lookup_end),
-                NULL, NULL,
-                gdict_marshal_VOID__VOID,
-                G_TYPE_NONE, 0);
- /**
+  g_signal_new("lookup-end", iface_type, G_SIGNAL_RUN_LAST,
+               G_STRUCT_OFFSET(GdictContextIface, lookup_end), NULL, NULL,
+               gdict_marshal_VOID__VOID, G_TYPE_NONE, 0);
+  /**
    * GdictContext::error
    * @context: the object which received the signal
    * @error: a #GError
@@ -132,14 +117,9 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_signal_new ("error",
-                iface_type,
-                G_SIGNAL_RUN_LAST,
-                G_STRUCT_OFFSET (GdictContextIface, error),
-                NULL, NULL,
-                gdict_marshal_VOID__POINTER,
-                G_TYPE_NONE, 1,
-                G_TYPE_POINTER);
+  g_signal_new("error", iface_type, G_SIGNAL_RUN_LAST,
+               G_STRUCT_OFFSET(GdictContextIface, error), NULL, NULL,
+               gdict_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
   /**
    * GdictContext::database-found
    * @context: the object which received the signal
@@ -149,14 +129,9 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_signal_new ("database-found",
-                iface_type,
-                G_SIGNAL_RUN_LAST,
-                G_STRUCT_OFFSET (GdictContextIface, database_found),
-                NULL, NULL,
-                gdict_marshal_VOID__BOXED,
-                G_TYPE_NONE, 1,
-                GDICT_TYPE_DATABASE);
+  g_signal_new("database-found", iface_type, G_SIGNAL_RUN_LAST,
+               G_STRUCT_OFFSET(GdictContextIface, database_found), NULL, NULL,
+               gdict_marshal_VOID__BOXED, G_TYPE_NONE, 1, GDICT_TYPE_DATABASE);
   /**
    * GdictContext::strategy-found
    * @context: the object which received the signal
@@ -166,14 +141,9 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_signal_new ("strategy-found",
-                iface_type,
-                G_SIGNAL_RUN_LAST,
-                G_STRUCT_OFFSET (GdictContextIface, strategy_found),
-                NULL, NULL,
-                gdict_marshal_VOID__BOXED,
-                G_TYPE_NONE, 1,
-                GDICT_TYPE_STRATEGY);
+  g_signal_new("strategy-found", iface_type, G_SIGNAL_RUN_LAST,
+               G_STRUCT_OFFSET(GdictContextIface, strategy_found), NULL, NULL,
+               gdict_marshal_VOID__BOXED, G_TYPE_NONE, 1, GDICT_TYPE_STRATEGY);
   /**
    * GdictContext::match-found
    * @context: the object which received the signal
@@ -183,14 +153,9 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_signal_new ("match-found",
-                iface_type,
-                G_SIGNAL_RUN_LAST,
-                G_STRUCT_OFFSET (GdictContextIface, match_found),
-                NULL, NULL,
-                gdict_marshal_VOID__BOXED,
-                G_TYPE_NONE, 1,
-                GDICT_TYPE_MATCH);
+  g_signal_new("match-found", iface_type, G_SIGNAL_RUN_LAST,
+               G_STRUCT_OFFSET(GdictContextIface, match_found), NULL, NULL,
+               gdict_marshal_VOID__BOXED, G_TYPE_NONE, 1, GDICT_TYPE_MATCH);
   /**
    * GdictContext::definition-found
    * @context: the object which received the signal
@@ -200,14 +165,10 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_signal_new ("definition-found",
-                iface_type,
-                G_SIGNAL_RUN_LAST,
-                G_STRUCT_OFFSET (GdictContextIface, definition_found),
-                NULL, NULL,
-                gdict_marshal_VOID__BOXED,
-                G_TYPE_NONE, 1,
-                GDICT_TYPE_DEFINITION);
+  g_signal_new("definition-found", iface_type, G_SIGNAL_RUN_LAST,
+               G_STRUCT_OFFSET(GdictContextIface, definition_found), NULL, NULL,
+               gdict_marshal_VOID__BOXED, G_TYPE_NONE, 1,
+               GDICT_TYPE_DEFINITION);
 
   /**
    * GdictContext:local-only
@@ -216,18 +177,15 @@ gdict_context_class_init (gpointer g_iface, void *user_data)
    *
    * Since: 1.0
    */
-  g_object_interface_install_property (g_iface,
-  				       g_param_spec_boolean ("local-only",
-  				       			     _("Local Only"),
-  				       			     _("Whether the context uses only local dictionaries or not"),
-  				       			     FALSE,
-  				       			     (G_PARAM_READABLE | G_PARAM_WRITABLE)));
+  g_object_interface_install_property(
+      g_iface, g_param_spec_boolean(
+                   "local-only", _("Local Only"),
+                   _("Whether the context uses only local dictionaries or not"),
+                   FALSE, (G_PARAM_READABLE | G_PARAM_WRITABLE)));
 }
 
-GQuark
-gdict_context_error_quark (void)
-{
-  return g_quark_from_static_string ("gdict-context-error-quark");
+GQuark gdict_context_error_quark(void) {
+  return g_quark_from_static_string("gdict-context-error-quark");
 }
 
 /**
@@ -240,13 +198,10 @@ gdict_context_error_quark (void)
  *
  * Since: 1.0
  */
-void
-gdict_context_set_local_only (GdictContext *context,
-			      gboolean      local_only)
-{
-  g_return_if_fail (GDICT_IS_CONTEXT (context));
+void gdict_context_set_local_only(GdictContext *context, gboolean local_only) {
+  g_return_if_fail(GDICT_IS_CONTEXT(context));
 
-  g_object_set (context, "local-only", &local_only, NULL);
+  g_object_set(context, "local-only", &local_only, NULL);
 }
 
 /**
@@ -259,14 +214,12 @@ gdict_context_set_local_only (GdictContext *context,
  *
  * Since: 1.0
  */
-gboolean
-gdict_context_get_local_only (GdictContext *context)
-{
+gboolean gdict_context_get_local_only(GdictContext *context) {
   gboolean local_only;
 
-  g_return_val_if_fail (GDICT_IS_CONTEXT (context), FALSE);
+  g_return_val_if_fail(GDICT_IS_CONTEXT(context), FALSE);
 
-  g_object_get (context, "local-only", &local_only, NULL);
+  g_object_get(context, "local-only", &local_only, NULL);
 
   return local_only;
 }
@@ -283,22 +236,19 @@ gdict_context_get_local_only (GdictContext *context)
  *
  * Since: 1.0
  */
-gboolean
-gdict_context_lookup_databases (GdictContext  *context,
-				GError       **error)
-{
-  g_return_val_if_fail (GDICT_IS_CONTEXT (context), FALSE);
+gboolean gdict_context_lookup_databases(GdictContext *context, GError **error) {
+  g_return_val_if_fail(GDICT_IS_CONTEXT(context), FALSE);
 
-  if (!GDICT_CONTEXT_GET_IFACE (context)->get_databases)
-    {
-      g_warning ("Object `%s' does not implement the get_databases "
-                 "virtual function.",
-                 g_type_name (G_OBJECT_TYPE (context)));
+  if (!GDICT_CONTEXT_GET_IFACE(context)->get_databases) {
+    g_warning(
+        "Object `%s' does not implement the get_databases "
+        "virtual function.",
+        g_type_name(G_OBJECT_TYPE(context)));
 
-      return FALSE;
-    }
+    return FALSE;
+  }
 
-  return GDICT_CONTEXT_GET_IFACE (context)->get_databases (context, error);
+  return GDICT_CONTEXT_GET_IFACE(context)->get_databases(context, error);
 }
 
 /**
@@ -313,22 +263,20 @@ gdict_context_lookup_databases (GdictContext  *context,
  *
  * Since: 1.0
  */
-gboolean
-gdict_context_lookup_strategies (GdictContext  *context,
-				 GError       **error)
-{
-  g_return_val_if_fail (GDICT_IS_CONTEXT (context), FALSE);
+gboolean gdict_context_lookup_strategies(GdictContext *context,
+                                         GError **error) {
+  g_return_val_if_fail(GDICT_IS_CONTEXT(context), FALSE);
 
-  if (!GDICT_CONTEXT_GET_IFACE (context)->get_strategies)
-    {
-      g_warning ("Object `%s' does not implement the get_strategies "
-                 "virtual function.",
-                 g_type_name (G_OBJECT_TYPE (context)));
+  if (!GDICT_CONTEXT_GET_IFACE(context)->get_strategies) {
+    g_warning(
+        "Object `%s' does not implement the get_strategies "
+        "virtual function.",
+        g_type_name(G_OBJECT_TYPE(context)));
 
-      return FALSE;
-    }
+    return FALSE;
+  }
 
-  return GDICT_CONTEXT_GET_IFACE (context)->get_strategies (context, error);
+  return GDICT_CONTEXT_GET_IFACE(context)->get_strategies(context, error);
 }
 
 /**
@@ -349,30 +297,23 @@ gdict_context_lookup_strategies (GdictContext  *context,
  *
  * Since: 1.0
  */
-gboolean
-gdict_context_match_word (GdictContext  *context,
-			  const gchar   *database,
-			  const gchar   *strategy,
-			  const gchar   *word,
-			  GError       **error)
-{
-  g_return_val_if_fail (GDICT_IS_CONTEXT (context), FALSE);
-  g_return_val_if_fail (word != NULL, FALSE);
+gboolean gdict_context_match_word(GdictContext *context, const gchar *database,
+                                  const gchar *strategy, const gchar *word,
+                                  GError **error) {
+  g_return_val_if_fail(GDICT_IS_CONTEXT(context), FALSE);
+  g_return_val_if_fail(word != NULL, FALSE);
 
-  if (!GDICT_CONTEXT_GET_IFACE (context)->match_word)
-    {
-      g_warning ("Object `%s' does not implement the match_word "
-                 "virtual function.",
-                 g_type_name (G_OBJECT_TYPE (context)));
+  if (!GDICT_CONTEXT_GET_IFACE(context)->match_word) {
+    g_warning(
+        "Object `%s' does not implement the match_word "
+        "virtual function.",
+        g_type_name(G_OBJECT_TYPE(context)));
 
-      return FALSE;
-    }
+    return FALSE;
+  }
 
-  return GDICT_CONTEXT_GET_IFACE (context)->match_word (context,
-  							database,
-  							strategy,
-  							word,
-  							error);
+  return GDICT_CONTEXT_GET_IFACE(context)->match_word(context, database,
+                                                      strategy, word, error);
 }
 
 /**
@@ -390,45 +331,37 @@ gdict_context_match_word (GdictContext  *context,
  *
  * Since: 1.0
  */
-gboolean
-gdict_context_define_word (GdictContext  *context,
-			   const gchar   *database,
-			   const gchar   *word,
-			   GError       **error)
-{
-  g_return_val_if_fail (GDICT_IS_CONTEXT (context), FALSE);
-  g_return_val_if_fail (word != NULL, FALSE);
+gboolean gdict_context_define_word(GdictContext *context, const gchar *database,
+                                   const gchar *word, GError **error) {
+  g_return_val_if_fail(GDICT_IS_CONTEXT(context), FALSE);
+  g_return_val_if_fail(word != NULL, FALSE);
 
-  if (!GDICT_CONTEXT_GET_IFACE (context)->define_word)
-    {
-      g_warning ("Object `%s' does not implement the define_word "
-                 "virtual function.",
-                 g_type_name (G_OBJECT_TYPE (context)));
+  if (!GDICT_CONTEXT_GET_IFACE(context)->define_word) {
+    g_warning(
+        "Object `%s' does not implement the define_word "
+        "virtual function.",
+        g_type_name(G_OBJECT_TYPE(context)));
 
-      return FALSE;
-    }
+    return FALSE;
+  }
 
-  return GDICT_CONTEXT_GET_IFACE (context)->define_word (context,
-  							 database,
-  							 word,
-  							 error);
+  return GDICT_CONTEXT_GET_IFACE(context)->define_word(context, database, word,
+                                                       error);
 }
 
 /*****************
  * GdictDatabase *
  *****************/
 
-GDICT_DEFINE_BOXED_TYPE (GdictDatabase, gdict_database);
+GDICT_DEFINE_BOXED_TYPE(GdictDatabase, gdict_database);
 
-GdictDatabase *
-_gdict_database_new (const gchar *name)
-{
+GdictDatabase *_gdict_database_new(const gchar *name) {
   GdictDatabase *retval;
 
-  g_return_val_if_fail (name != NULL, NULL);
+  g_return_val_if_fail(name != NULL, NULL);
 
-  retval = g_slice_new (GdictDatabase);
-  retval->name = g_strdup (name);
+  retval = g_slice_new(GdictDatabase);
+  retval->name = g_strdup(name);
   retval->full_name = NULL;
   retval->ref_count = 1;
 
@@ -445,12 +378,10 @@ _gdict_database_new (const gchar *name)
  *
  * Since: 1.0
  */
-GdictDatabase *
-gdict_database_ref (GdictDatabase *db)
-{
-  g_return_val_if_fail (db != NULL, NULL);
+GdictDatabase *gdict_database_ref(GdictDatabase *db) {
+  g_return_val_if_fail(db != NULL, NULL);
 
-  g_assert (db->ref_count != 0);
+  g_assert(db->ref_count != 0);
 
   db->ref_count += 1;
 
@@ -466,21 +397,18 @@ gdict_database_ref (GdictDatabase *db)
  *
  * Since: 1.0
  */
-void
-gdict_database_unref (GdictDatabase *db)
-{
-  g_return_if_fail (db != NULL);
+void gdict_database_unref(GdictDatabase *db) {
+  g_return_if_fail(db != NULL);
 
-  g_assert (db->ref_count != 0);
+  g_assert(db->ref_count != 0);
 
   db->ref_count -= 1;
-  if (db->ref_count == 0)
-    {
-      g_free (db->name);
-      g_free (db->full_name);
+  if (db->ref_count == 0) {
+    g_free(db->name);
+    g_free(db->full_name);
 
-      g_slice_free (GdictDatabase, db);
-    }
+    g_slice_free(GdictDatabase, db);
+  }
 }
 
 /**
@@ -495,10 +423,8 @@ gdict_database_unref (GdictDatabase *db)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_database_get_name (GdictDatabase *db)
-{
-  g_return_val_if_fail (db != NULL, NULL);
+const gchar *gdict_database_get_name(GdictDatabase *db) {
+  g_return_val_if_fail(db != NULL, NULL);
 
   return db->name;
 }
@@ -514,10 +440,8 @@ gdict_database_get_name (GdictDatabase *db)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_database_get_full_name (GdictDatabase *db)
-{
-  g_return_val_if_fail (db != NULL, NULL);
+const gchar *gdict_database_get_full_name(GdictDatabase *db) {
+  g_return_val_if_fail(db != NULL, NULL);
 
   return db->full_name;
 }
@@ -526,17 +450,15 @@ gdict_database_get_full_name (GdictDatabase *db)
  * GdictStrategy *
  *****************/
 
-GDICT_DEFINE_BOXED_TYPE (GdictStrategy, gdict_strategy);
+GDICT_DEFINE_BOXED_TYPE(GdictStrategy, gdict_strategy);
 
-GdictStrategy *
-_gdict_strategy_new (const gchar *name)
-{
+GdictStrategy *_gdict_strategy_new(const gchar *name) {
   GdictStrategy *strat;
 
-  g_return_val_if_fail (name != NULL, NULL);
+  g_return_val_if_fail(name != NULL, NULL);
 
-  strat = g_slice_new (GdictStrategy);
-  strat->name = g_strdup (name);
+  strat = g_slice_new(GdictStrategy);
+  strat->name = g_strdup(name);
   strat->description = NULL;
   strat->ref_count = 1;
 
@@ -554,12 +476,10 @@ _gdict_strategy_new (const gchar *name)
  *
  * Since: 1.0
  */
-GdictStrategy *
-gdict_strategy_ref (GdictStrategy   *strat)
-{
-  g_return_val_if_fail (strat != NULL, NULL);
+GdictStrategy *gdict_strategy_ref(GdictStrategy *strat) {
+  g_return_val_if_fail(strat != NULL, NULL);
 
-  g_assert (strat->ref_count != 0);
+  g_assert(strat->ref_count != 0);
 
   strat->ref_count += 1;
 
@@ -575,21 +495,18 @@ gdict_strategy_ref (GdictStrategy   *strat)
  *
  * Since: 1.0
  */
-void
-gdict_strategy_unref (GdictStrategy *strat)
-{
-  g_return_if_fail (strat != NULL);
+void gdict_strategy_unref(GdictStrategy *strat) {
+  g_return_if_fail(strat != NULL);
 
-  g_assert (strat->ref_count != 0);
+  g_assert(strat->ref_count != 0);
 
   strat->ref_count -= 1;
-  if (strat->ref_count == 0)
-    {
-      g_free (strat->name);
-      g_free (strat->description);
+  if (strat->ref_count == 0) {
+    g_free(strat->name);
+    g_free(strat->description);
 
-      g_slice_free (GdictStrategy, strat);
-    }
+    g_slice_free(GdictStrategy, strat);
+  }
 }
 
 /**
@@ -602,10 +519,8 @@ gdict_strategy_unref (GdictStrategy *strat)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_strategy_get_name (GdictStrategy *strat)
-{
-  g_return_val_if_fail (strat != NULL, NULL);
+const gchar *gdict_strategy_get_name(GdictStrategy *strat) {
+  g_return_val_if_fail(strat != NULL, NULL);
 
   return strat->name;
 }
@@ -620,10 +535,8 @@ gdict_strategy_get_name (GdictStrategy *strat)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_strategy_get_description (GdictStrategy *strat)
-{
-  g_return_val_if_fail (strat != NULL, NULL);
+const gchar *gdict_strategy_get_description(GdictStrategy *strat) {
+  g_return_val_if_fail(strat != NULL, NULL);
 
   return strat->description;
 }
@@ -632,17 +545,15 @@ gdict_strategy_get_description (GdictStrategy *strat)
  * GdictMatch *
  **************/
 
-GDICT_DEFINE_BOXED_TYPE (GdictMatch, gdict_match);
+GDICT_DEFINE_BOXED_TYPE(GdictMatch, gdict_match);
 
-GdictMatch *
-_gdict_match_new (const gchar *word)
-{
+GdictMatch *_gdict_match_new(const gchar *word) {
   GdictMatch *match;
 
-  g_return_val_if_fail (word != NULL, NULL);
+  g_return_val_if_fail(word != NULL, NULL);
 
-  match = g_slice_new (GdictMatch);
-  match->word = g_strdup (word);
+  match = g_slice_new(GdictMatch);
+  match->word = g_strdup(word);
   match->database = NULL;
   match->ref_count = 1;
 
@@ -659,12 +570,10 @@ _gdict_match_new (const gchar *word)
  *
  * Since: 1.0
  */
-GdictMatch *
-gdict_match_ref (GdictMatch *match)
-{
-  g_return_val_if_fail (match != NULL, NULL);
+GdictMatch *gdict_match_ref(GdictMatch *match) {
+  g_return_val_if_fail(match != NULL, NULL);
 
-  g_assert (match->ref_count != 0);
+  g_assert(match->ref_count != 0);
 
   match->ref_count += 1;
 
@@ -679,22 +588,19 @@ gdict_match_ref (GdictMatch *match)
  *
  * Since: 1.0
  */
-void
-gdict_match_unref (GdictMatch *match)
-{
-  g_return_if_fail (match != NULL);
+void gdict_match_unref(GdictMatch *match) {
+  g_return_if_fail(match != NULL);
 
-  g_assert (match->ref_count != 0);
+  g_assert(match->ref_count != 0);
 
   match->ref_count -= 1;
 
-  if (match->ref_count == 0)
-    {
-      g_free (match->word);
-      g_free (match->database);
+  if (match->ref_count == 0) {
+    g_free(match->word);
+    g_free(match->database);
 
-      g_slice_free (GdictMatch, match);
-    }
+    g_slice_free(GdictMatch, match);
+  }
 }
 
 /**
@@ -707,10 +613,8 @@ gdict_match_unref (GdictMatch *match)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_match_get_word (GdictMatch *match)
-{
-  g_return_val_if_fail (match != NULL, NULL);
+const gchar *gdict_match_get_word(GdictMatch *match) {
+  g_return_val_if_fail(match != NULL, NULL);
 
   return match->word;
 }
@@ -725,10 +629,8 @@ gdict_match_get_word (GdictMatch *match)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_match_get_database (GdictMatch *match)
-{
-  g_return_val_if_fail (match != NULL, NULL);
+const gchar *gdict_match_get_database(GdictMatch *match) {
+  g_return_val_if_fail(match != NULL, NULL);
 
   return match->database;
 }
@@ -737,15 +639,13 @@ gdict_match_get_database (GdictMatch *match)
  * GdictDefinition *
  *******************/
 
-GDICT_DEFINE_BOXED_TYPE (GdictDefinition, gdict_definition);
+GDICT_DEFINE_BOXED_TYPE(GdictDefinition, gdict_definition);
 
 /* GdictDefinition constructor */
-GdictDefinition *
-_gdict_definition_new (gint total)
-{
+GdictDefinition *_gdict_definition_new(gint total) {
   GdictDefinition *def;
 
-  def = g_slice_new (GdictDefinition);
+  def = g_slice_new(GdictDefinition);
 
   def->total = total;
   def->word = NULL;
@@ -767,12 +667,10 @@ _gdict_definition_new (gint total)
  *
  * Since: 1.0
  */
-GdictDefinition *
-gdict_definition_ref (GdictDefinition *def)
-{
-  g_return_val_if_fail (def != NULL, NULL);
+GdictDefinition *gdict_definition_ref(GdictDefinition *def) {
+  g_return_val_if_fail(def != NULL, NULL);
 
-  g_assert (def->ref_count != 0);
+  g_assert(def->ref_count != 0);
 
   def->ref_count += 1;
 
@@ -788,22 +686,19 @@ gdict_definition_ref (GdictDefinition *def)
  *
  * Since: 1.0
  */
-void
-gdict_definition_unref (GdictDefinition *def)
-{
-  g_return_if_fail (def != NULL);
+void gdict_definition_unref(GdictDefinition *def) {
+  g_return_if_fail(def != NULL);
 
-  g_assert (def->ref_count != 0);
+  g_assert(def->ref_count != 0);
 
   def->ref_count -= 1;
-  if (def->ref_count == 0)
-    {
-      g_free (def->word);
-      g_free (def->database_name);
-      g_free (def->database_full);
+  if (def->ref_count == 0) {
+    g_free(def->word);
+    g_free(def->database_name);
+    g_free(def->database_full);
 
-      g_slice_free (GdictDefinition, def);
-    }
+    g_slice_free(GdictDefinition, def);
+  }
 }
 
 /**
@@ -817,10 +712,8 @@ gdict_definition_unref (GdictDefinition *def)
  *
  * Since: 1.0
  */
-gint
-gdict_definition_get_total (GdictDefinition *def)
-{
-  g_return_val_if_fail (def != NULL, -1);
+gint gdict_definition_get_total(GdictDefinition *def) {
+  g_return_val_if_fail(def != NULL, -1);
 
   return def->total;
 }
@@ -837,10 +730,8 @@ gdict_definition_get_total (GdictDefinition *def)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_definition_get_word (GdictDefinition *def)
-{
-  g_return_val_if_fail (def != NULL, NULL);
+const gchar *gdict_definition_get_word(GdictDefinition *def) {
+  g_return_val_if_fail(def != NULL, NULL);
 
   return def->word;
 }
@@ -858,10 +749,8 @@ gdict_definition_get_word (GdictDefinition *def)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_definition_get_database (GdictDefinition *def)
-{
-  g_return_val_if_fail (def != NULL, NULL);
+const gchar *gdict_definition_get_database(GdictDefinition *def) {
+  g_return_val_if_fail(def != NULL, NULL);
 
   return def->database_full;
 }
@@ -878,10 +767,8 @@ gdict_definition_get_database (GdictDefinition *def)
  *
  * Since: 1.0
  */
-const gchar *
-gdict_definition_get_text (GdictDefinition *def)
-{
-  g_return_val_if_fail (def != NULL, NULL);
+const gchar *gdict_definition_get_text(GdictDefinition *def) {
+  g_return_val_if_fail(def != NULL, NULL);
 
   return def->definition;
 }

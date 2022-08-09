@@ -26,29 +26,37 @@
 
 G_BEGIN_DECLS
 
-#define LOGVIEW_TYPE_FILTER_MANAGER             (logview_filter_manager_get_type ())
-#define LOGVIEW_FILTER_MANAGER(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_FILTER_MANAGER, LogviewFilterManager))
-#define LOGVIEW_FILTER_MANAGER_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_FILTER_MANAGER, LogviewFilterManagerClass))
-#define LOGVIEW_IS_FILTER_MANAGER(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_FILTER_MANAGER))
-#define LOGVIEW_IS_FILTER_MANAGER_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), LOGVIEW_TYPE_FILTER_MANAGER))
-#define LOGVIEW_FILTER_MANAGER_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_FILTER_MANAGER, LogviewFilterManagerClass))
+#define LOGVIEW_TYPE_FILTER_MANAGER (logview_filter_manager_get_type())
+#define LOGVIEW_FILTER_MANAGER(obj)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_FILTER_MANAGER, \
+                              LogviewFilterManager))
+#define LOGVIEW_FILTER_MANAGER_CLASS(klass)                      \
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_FILTER_MANAGER, \
+                           LogviewFilterManagerClass))
+#define LOGVIEW_IS_FILTER_MANAGER(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_FILTER_MANAGER))
+#define LOGVIEW_IS_FILTER_MANAGER_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_TYPE((klass), LOGVIEW_TYPE_FILTER_MANAGER))
+#define LOGVIEW_FILTER_MANAGER_GET_CLASS(obj)                    \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_FILTER_MANAGER, \
+                             LogviewFilterManagerClass))
 
 typedef struct _LogviewFilterManagerClass LogviewFilterManagerClass;
 typedef struct _LogviewFilterManager LogviewFilterManager;
 typedef struct _LogviewFilterManagerPrivate LogviewFilterManagerPrivate;
 
 struct _LogviewFilterManagerClass {
-	GtkDialogClass parent_class;
+  GtkDialogClass parent_class;
 };
 
 struct _LogviewFilterManager {
-	GtkDialog parent_instance;
+  GtkDialog parent_instance;
 
-	LogviewFilterManagerPrivate* priv;
+  LogviewFilterManagerPrivate* priv;
 };
 
-GType       logview_filter_manager_get_type (void) G_GNUC_CONST;
-GtkWidget * logview_filter_manager_new (void);
+GType logview_filter_manager_get_type(void) G_GNUC_CONST;
+GtkWidget* logview_filter_manager_new(void);
 
 G_END_DECLS
 

@@ -20,16 +20,18 @@
 #ifndef __GDICT_WINDOW_H__
 #define __GDICT_WINDOW_H__
 
-#include <gio/gio.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 #include <libgdict/gdict.h>
 
 G_BEGIN_DECLS
 
-#define GDICT_TYPE_WINDOW	(gdict_window_get_type ())
-#define GDICT_WINDOW(obj)	(G_TYPE_CHECK_INSTANCE_CAST ((obj), GDICT_TYPE_WINDOW, GdictWindow))
-#define GDICT_IS_WINDOW(obj)	(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GDICT_TYPE_WINDOW))
+#define GDICT_TYPE_WINDOW (gdict_window_get_type())
+#define GDICT_WINDOW(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), GDICT_TYPE_WINDOW, GdictWindow))
+#define GDICT_IS_WINDOW(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GDICT_TYPE_WINDOW))
 
 typedef enum {
   GDICT_WINDOW_ACTION_LOOKUP,
@@ -37,14 +39,13 @@ typedef enum {
   GDICT_WINDOW_ACTION_CLEAR
 } GdictWindowAction;
 
-#define GDICT_TYPE_WINDOW_ACTION	(gdict_window_action_get_type ())
-GType gdict_window_action_get_type (void) G_GNUC_CONST;
+#define GDICT_TYPE_WINDOW_ACTION (gdict_window_action_get_type())
+GType gdict_window_action_get_type(void) G_GNUC_CONST;
 
-typedef struct _GdictWindow      GdictWindow;
+typedef struct _GdictWindow GdictWindow;
 typedef struct _GdictWindowClass GdictWindowClass;
 
-struct _GdictWindow
-{
+struct _GdictWindow {
   GtkWindow parent_instance;
 
   GtkWidget *main_box;
@@ -105,26 +106,22 @@ struct _GdictWindow
 
   gchar *sidebar_page;
 
-  guint is_maximized      : 1;
-  guint sidebar_visible   : 1;
+  guint is_maximized : 1;
+  guint sidebar_visible : 1;
   guint statusbar_visible : 1;
-  guint in_construction   : 1;
+  guint in_construction : 1;
 
   gulong window_id;
 };
 
-struct _GdictWindowClass
-{
+struct _GdictWindowClass {
   GtkWindowClass parent_class;
 
-  void (*created) (GdictWindow *parent_window,
-  		   GdictWindow *new_window);
+  void (*created)(GdictWindow *parent_window, GdictWindow *new_window);
 };
 
-GType      gdict_window_get_type (void) G_GNUC_CONST;
-GtkWidget *gdict_window_new      (GdictWindowAction  action,
-				  GdictSourceLoader *loader,
-				  const gchar       *source_name,
-				  const gchar       *word);
+GType gdict_window_get_type(void) G_GNUC_CONST;
+GtkWidget *gdict_window_new(GdictWindowAction action, GdictSourceLoader *loader,
+                            const gchar *source_name, const gchar *word);
 
 #endif /* __GDICT_WINDOW_H__ */

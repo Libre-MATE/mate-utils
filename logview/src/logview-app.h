@@ -27,15 +27,15 @@ G_BEGIN_DECLS
 
 #define LOGVIEW_TYPE_APP logview_app_get_type()
 #define LOGVIEW_APP(obj) \
-  (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_APP, LogviewApp))
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_APP, LogviewApp))
 #define LOGVIEW_APP_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_APP, LogviewAppClass))
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_APP, LogviewAppClass))
 #define LOGVIEW_IS_APP(obj) \
-  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_APP))
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_APP))
 #define LOGVIEW_IS_APP_CLASS(klass) \
-  (G_TYPE_CHECK_CLASS_TYPE ((klass), LOGVIEW_TYPE_APP))
+  (G_TYPE_CHECK_CLASS_TYPE((klass), LOGVIEW_TYPE_APP))
 #define LOGVIEW_APP_GET_CLASS(obj) \
-  (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_APP, LogviewAppClass))
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_APP, LogviewAppClass))
 
 typedef struct _LogviewApp LogviewApp;
 typedef struct _LogviewAppClass LogviewAppClass;
@@ -50,21 +50,17 @@ struct _LogviewApp {
 struct _LogviewAppClass {
   GObjectClass parent_class;
 
-  void (* app_quit) (LogviewApp *app);
+  void (*app_quit)(LogviewApp *app);
 };
 
-
-GType logview_app_get_type (void);
+GType logview_app_get_type(void);
 
 /* public methods */
-LogviewApp * logview_app_get (void);
-void         logview_app_initialize (LogviewApp *app,
-                                     char **log_files);
-void         logview_app_add_error  (LogviewApp *app,
-                                     const char *file_path,
-                                     const char *secondary);
-void         logview_app_add_errors (LogviewApp *app,
-                                     GPtrArray *errors);
+LogviewApp *logview_app_get(void);
+void logview_app_initialize(LogviewApp *app, char **log_files);
+void logview_app_add_error(LogviewApp *app, const char *file_path,
+                           const char *secondary);
+void logview_app_add_errors(LogviewApp *app, GPtrArray *errors);
 
 G_END_DECLS
 

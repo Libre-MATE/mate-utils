@@ -21,18 +21,23 @@
 #ifndef _LOGVIEW_FILTER_H_
 #define _LOGVIEW_FILTER_H_
 
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-#define LOGVIEW_TYPE_FILTER             (logview_filter_get_type ())
-#define LOGVIEW_FILTER(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), LOGVIEW_TYPE_FILTER, LogviewFilter))
-#define LOGVIEW_FILTER_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), LOGVIEW_TYPE_FILTER, LogviewFilterClass))
-#define LOGVIEW_IS_FILTER(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), LOGVIEW_TYPE_FILTER))
-#define LOGVIEW_IS_FILTER_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), LOGVIEW_TYPE_FILTER))
-#define LOGVIEW_FILTER_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), LOGVIEW_TYPE_FILTER, LogviewFilterClass))
+#define LOGVIEW_TYPE_FILTER (logview_filter_get_type())
+#define LOGVIEW_FILTER(obj) \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), LOGVIEW_TYPE_FILTER, LogviewFilter))
+#define LOGVIEW_FILTER_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_CAST((klass), LOGVIEW_TYPE_FILTER, LogviewFilterClass))
+#define LOGVIEW_IS_FILTER(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), LOGVIEW_TYPE_FILTER))
+#define LOGVIEW_IS_FILTER_CLASS(klass) \
+  (G_TYPE_CHECK_CLASS_TYPE((klass), LOGVIEW_TYPE_FILTER))
+#define LOGVIEW_FILTER_GET_CLASS(obj) \
+  (G_TYPE_INSTANCE_GET_CLASS((obj), LOGVIEW_TYPE_FILTER, LogviewFilterClass))
 
 typedef struct _LogviewFilterClass LogviewFilterClass;
 typedef struct _LogviewFilter LogviewFilter;
@@ -48,12 +53,10 @@ struct _LogviewFilter {
   LogviewFilterPrivate *priv;
 };
 
-GType           logview_filter_get_type (void) G_GNUC_CONST;
-LogviewFilter * logview_filter_new (const gchar *name,
-                                    const gchar *regex);
-gboolean        logview_filter_filter (LogviewFilter *filter,
-                                       const gchar *line);
-GtkTextTag *    logview_filter_get_tag (LogviewFilter *filter);
+GType logview_filter_get_type(void) G_GNUC_CONST;
+LogviewFilter *logview_filter_new(const gchar *name, const gchar *regex);
+gboolean logview_filter_filter(LogviewFilter *filter, const gchar *line);
+GtkTextTag *logview_filter_get_tag(LogviewFilter *filter);
 
 G_END_DECLS
 

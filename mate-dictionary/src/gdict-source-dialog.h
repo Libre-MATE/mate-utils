@@ -25,26 +25,27 @@
 
 G_BEGIN_DECLS
 
-#define GDICT_TYPE_SOURCE_DIALOG 	(gdict_source_dialog_get_type ())
-#define GDICT_SOURCE_DIALOG(obj) 	(G_TYPE_CHECK_INSTANCE_CAST ((obj), GDICT_TYPE_SOURCE_DIALOG, GdictSourceDialog))
-#define GDICT_IS_SOURCE_DIALOG(obj) 	(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GDICT_TYPE_SOURCE_DIALOG))
+#define GDICT_TYPE_SOURCE_DIALOG (gdict_source_dialog_get_type())
+#define GDICT_SOURCE_DIALOG(obj)                               \
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), GDICT_TYPE_SOURCE_DIALOG, \
+                              GdictSourceDialog))
+#define GDICT_IS_SOURCE_DIALOG(obj) \
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), GDICT_TYPE_SOURCE_DIALOG))
 
-typedef enum
-{
+typedef enum {
   GDICT_SOURCE_DIALOG_VIEW,
   GDICT_SOURCE_DIALOG_CREATE,
   GDICT_SOURCE_DIALOG_EDIT
 } GdictSourceDialogAction;
 
-typedef struct _GdictSourceDialog      GdictSourceDialog;
+typedef struct _GdictSourceDialog GdictSourceDialog;
 typedef struct _GdictSourceDialogClass GdictSourceDialogClass;
 
-GType      gdict_source_dialog_get_type (void) G_GNUC_CONST;
-GtkWidget *gdict_source_dialog_new      (GtkWindow               *parent,
-					 const gchar             *title,
-					 GdictSourceDialogAction  action,
-					 GdictSourceLoader       *loader,
-					 const gchar             *source_name);
+GType gdict_source_dialog_get_type(void) G_GNUC_CONST;
+GtkWidget *gdict_source_dialog_new(GtkWindow *parent, const gchar *title,
+                                   GdictSourceDialogAction action,
+                                   GdictSourceLoader *loader,
+                                   const gchar *source_name);
 
 G_END_DECLS
 

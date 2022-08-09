@@ -20,29 +20,26 @@
 #ifndef __SCREENSHOT_UTILS_H__
 #define __SCREENSHOT_UTILS_H__
 
-#include <gtk/gtk.h>
 #include <gdk/gdkx.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-typedef void (* SelectAreaCallback) (GdkRectangle *rectangle);
+typedef void (*SelectAreaCallback)(GdkRectangle *rectangle);
 
-gboolean   screenshot_grab_lock           (void);
-void       screenshot_release_lock        (void);
-GdkWindow *screenshot_find_current_window (void);
-void       screenshot_select_area_async   (SelectAreaCallback callback);
-GdkPixbuf *screenshot_get_pixbuf          (GdkWindow *win,
-                                           GdkRectangle *rectangle,
-                                           gboolean include_pointer,
-                                           gboolean include_border,
-                                           gboolean include_mask);
+gboolean screenshot_grab_lock(void);
+void screenshot_release_lock(void);
+GdkWindow *screenshot_find_current_window(void);
+void screenshot_select_area_async(SelectAreaCallback callback);
+GdkPixbuf *screenshot_get_pixbuf(GdkWindow *win, GdkRectangle *rectangle,
+                                 gboolean include_pointer,
+                                 gboolean include_border,
+                                 gboolean include_mask);
 
-void       screenshot_show_error_dialog   (GtkWindow   *parent,
-                                           const gchar *message,
-                                           const gchar *detail);
-void       screenshot_show_gerror_dialog  (GtkWindow   *parent,
-                                           const gchar *message,
-                                           GError      *error);
+void screenshot_show_error_dialog(GtkWindow *parent, const gchar *message,
+                                  const gchar *detail);
+void screenshot_show_gerror_dialog(GtkWindow *parent, const gchar *message,
+                                   GError *error);
 
 G_END_DECLS
 

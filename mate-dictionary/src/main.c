@@ -19,25 +19,24 @@
 #include <config.h>
 #endif
 
+#include <libintl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <libintl.h>
 
 #include "gdict-app.h"
 
-int main (int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, MATELOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-	textdomain (GETTEXT_PACKAGE);
+  bindtextdomain(GETTEXT_PACKAGE, MATELOCALEDIR);
+  bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+  textdomain(GETTEXT_PACKAGE);
 #endif /* ENABLE_NLS */
 
-	gdict_init (&argc, &argv);
+  gdict_init(&argc, &argv);
 
-	gdict_main ();
+  gdict_main();
 
-	gdict_cleanup ();
+  gdict_cleanup();
 
-	return EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
