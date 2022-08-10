@@ -25,15 +25,12 @@
 #ifndef _GSEARCHTOOL_CALLBACKS_H_
 #define _GSEARCHTOOL_CALLBACKS_H_
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif
-
 #include <glib.h>
 #include <gtk/gtk.h>
 
 #include "eggsmclient.h"
+
+G_BEGIN_DECLS
 
 void version_cb(const gchar *option_name, const gchar *value, gpointer data,
                 GError **error);
@@ -92,8 +89,6 @@ void columns_changed_cb(GtkTreeView *treeview, gpointer user_data);
 gboolean window_state_event_cb(GtkWidget *widget, GdkEventWindowState *event,
                                gpointer data);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
 
 #endif /* _GSEARCHTOOL_CALLBACKS_H_ */

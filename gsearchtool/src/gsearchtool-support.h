@@ -25,14 +25,13 @@
 #ifndef _GSEARCHTOOL_SUPPORT_H_
 #define _GSEARCHTOOL_SUPPORT_H_
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif
+#include <glib.h>
 
 #include "gsearchtool.h"
 
 #define ICON_SIZE 24
+
+G_BEGIN_DECLS
 
 gboolean is_path_hidden(const gchar *path);
 
@@ -71,8 +70,6 @@ void gsearchtool_set_columns_order(GtkTreeView *treeview);
 void gsearchtool_get_stored_window_geometry(gint *width, gint *height);
 gchar *gsearchtool_get_next_duplicate_name(const gchar *basname);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
 
 #endif /* _GSEARCHTOOL_SUPPORT_H */

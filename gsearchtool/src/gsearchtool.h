@@ -25,12 +25,10 @@
 #ifndef _GSEARCHTOOL_H_
 #define _GSEARCHTOOL_H_
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif
-
+#include <glib.h>
 #include <gtk/gtk.h>
+
+G_BEGIN_DECLS
 
 #define GSEARCH_TYPE_WINDOW gsearch_window_get_type()
 #define GSEARCH_WINDOW(obj) \
@@ -210,8 +208,6 @@ void update_search_counts(GSearchWindow* gsearch);
 gboolean tree_model_iter_free_monitor(GtkTreeModel* model, GtkTreePath* path,
                                       GtkTreeIter* iter, gpointer data);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
 
 #endif /* _GSEARCHTOOL_H_ */
