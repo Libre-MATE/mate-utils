@@ -462,9 +462,11 @@ static void gdict_source_dialog_set_property(GObject *object, guint prop_id,
       g_free(dialog->source_name);
       dialog->source_name = g_strdup(g_value_get_string(value));
       break;
-    case PROP_ACTION:
-      dialog->action = (GdictSourceDialogAction)g_value_get_int(value);
+    case PROP_ACTION: {
+      int action = g_value_get_int(value);
+      dialog->action = (GdictSourceDialogAction)action;
       break;
+    }
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
       break;
