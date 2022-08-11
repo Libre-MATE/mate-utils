@@ -849,11 +849,7 @@ static void add_file_to_search_results(const gchar *file, GtkListStore *store,
   GFile *g_file;
   GError *error = NULL;
   GDateTime *file_dt;
-#if GLIB_CHECK_VERSION(2, 61, 2)
   gint64 time_val;
-#else
-  GTimeVal time_val;
-#endif
   GtkTreePath *path;
   GtkTreeRowReference *reference;
   gchar *description;
@@ -893,13 +889,8 @@ static void add_file_to_search_results(const gchar *file, GtkListStore *store,
   description = get_file_type_description(file, file_info);
   readable_size = g_format_size(g_file_info_get_size(file_info));
 
-#if GLIB_CHECK_VERSION(2, 61, 2)
   file_dt = g_file_info_get_modification_date_time(file_info);
   time_val = g_date_time_to_unix(file_dt);
-#else
-  g_file_info_get_modification_time(file_info, &time_val);
-  file_dt = g_date_time_new_from_unix_local((gint64)time_val.tv_sec);
-#endif
   readable_date =
       get_readable_date(gsearch->search_results_date_format, file_dt);
 
@@ -937,11 +928,7 @@ static void add_file_to_search_results(const gchar *file, GtkListStore *store,
       (description != NULL) ? description
                             : g_strdup(g_file_info_get_content_type(file_info)),
       COLUMN_READABLE_DATE, readable_date,
-#if GLIB_CHECK_VERSION(2, 61, 2)
       COLUMN_DATE, (-1) * (gdouble)time_val,
-#else
-      COLUMN_DATE, (-1) * (gdouble)time_val.tv_sec,
-#endif
       COLUMN_NO_FILES_FOUND, FALSE, -1);
 
   monitor = g_slice_new0(GSearchMonitor);
