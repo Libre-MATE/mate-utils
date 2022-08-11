@@ -121,17 +121,10 @@ static void gdict_window_dispose(GObject *gobject) {
   }
 
   if (window->context) {
-    if (window->lookup_start_id) {
-      g_signal_handler_disconnect(window->context, window->lookup_start_id);
-      g_signal_handler_disconnect(window->context, window->definition_id);
-      g_signal_handler_disconnect(window->context, window->lookup_end_id);
-      g_signal_handler_disconnect(window->context, window->error_id);
-
-      window->lookup_start_id = 0;
-      window->definition_id = 0;
-      window->lookup_end_id = 0;
-      window->error_id = 0;
-    }
+    g_clear_signal_handler(&window->lookup_start_id, window->context);
+    g_clear_signal_handler(&window->definition_id, window->context);
+    g_clear_signal_handler(&window->lookup_end_id, window->context);
+    g_clear_signal_handler(&window->error_id, window->context);
 
     g_object_unref(window->context);
     window->context = NULL;
@@ -526,15 +519,10 @@ static void gdict_window_set_word(GdictWindow *window, const gchar *word,
 static void gdict_window_set_context(GdictWindow *window,
                                      GdictContext *context) {
   if (window->context) {
-    g_signal_handler_disconnect(window->context, window->definition_id);
-    g_signal_handler_disconnect(window->context, window->lookup_start_id);
-    g_signal_handler_disconnect(window->context, window->lookup_end_id);
-    g_signal_handler_disconnect(window->context, window->error_id);
-
-    window->definition_id = 0;
-    window->lookup_start_id = 0;
-    window->lookup_end_id = 0;
-    window->error_id = 0;
+    g_clear_signal_handler(&window->lookup_start_id, window->context);
+    g_clear_signal_handler(&window->definition_id, window->context);
+    g_clear_signal_handler(&window->lookup_end_id, window->context);
+    g_clear_signal_handler(&window->error_id, window->context);
 
     g_object_unref(window->context);
     window->context = NULL;

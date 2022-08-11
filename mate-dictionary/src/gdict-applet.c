@@ -779,16 +779,11 @@ static void gdict_applet_set_context(GdictApplet *applet,
   GdictAppletPrivate *priv = applet->priv;
 
   if (priv->context) {
-    g_signal_handler_disconnect(priv->context, priv->lookup_start_id);
-    g_signal_handler_disconnect(priv->context, priv->lookup_end_id);
-    g_signal_handler_disconnect(priv->context, priv->error_id);
-
-    priv->lookup_start_id = 0;
-    priv->lookup_end_id = 0;
-    priv->error_id = 0;
+    g_clear_signal_handler(&priv->lookup_start_id, priv->context);
+    g_clear_signal_handler(&priv->lookup_end_id, priv->context);
+    g_clear_signal_handler(&priv->error_id, priv->context);
 
     g_object_unref(priv->context);
-    priv->context = NULL;
   }
 
   if (priv->defbox)
@@ -863,13 +858,12 @@ static void gdict_applet_finalize(GObject *object) {
   }
 
   if (priv->context) {
-    if (priv->lookup_start_id) {
-      g_signal_handler_disconnect(priv->context, priv->lookup_start_id);
-      g_signal_handler_disconnect(priv->context, priv->lookup_end_id);
-      g_signal_handler_disconnect(priv->context, priv->error_id);
-    }
+    g_clear_signal_handler(&priv->lookup_start_id, priv->context);
+    g_clear_signal_handler(&priv->lookup_end_id, priv->context);
+    g_clear_signal_handler(&priv->error_id, priv->context);
 
     g_object_unref(priv->context);
+    priv->context = NULL;
   }
 
   if (priv->loader) g_object_unref(priv->loader);

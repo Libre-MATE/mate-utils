@@ -925,10 +925,7 @@ static void active_log_changed_cb(LogviewManager *manager, LogviewLog *log,
 
   logview_set_window_title(window, logview_log_get_display_name(log));
 
-  if (window->priv->monitor_id) {
-    g_signal_handler_disconnect(old_log, window->priv->monitor_id);
-    window->priv->monitor_id = 0;
-  }
+  g_clear_signal_handler(&window->priv->monitor_id, old_log);
 
   lines = logview_log_get_cached_lines(log);
   buffer = gtk_text_buffer_new(window->priv->tag_table);

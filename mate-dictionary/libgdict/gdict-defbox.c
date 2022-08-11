@@ -141,20 +141,10 @@ static void gdict_defbox_dispose(GObject *gobject) {
   GdictDefbox *defbox = GDICT_DEFBOX(gobject);
   GdictDefboxPrivate *priv = defbox->priv;
 
-  if (priv->start_id) {
-    g_signal_handler_disconnect(priv->context, priv->start_id);
-    g_signal_handler_disconnect(priv->context, priv->end_id);
-    g_signal_handler_disconnect(priv->context, priv->define_id);
-
-    priv->start_id = 0;
-    priv->end_id = 0;
-    priv->define_id = 0;
-  }
-
-  if (priv->error_id) {
-    g_signal_handler_disconnect(priv->context, priv->error_id);
-    priv->error_id = 0;
-  }
+  g_clear_signal_handler(&priv->start_id, priv->context);
+  g_clear_signal_handler(&priv->end_id, priv->context);
+  g_clear_signal_handler(&priv->define_id, priv->context);
+  g_clear_signal_handler(&priv->error_id, priv->context);
 
   if (priv->context) {
     g_object_unref(priv->context);
@@ -209,27 +199,14 @@ static void set_gdict_context(GdictDefbox *defbox, GdictContext *context) {
 
   priv = defbox->priv;
   if (priv->context) {
-    if (priv->start_id) {
-      GDICT_NOTE(DEFBOX, "Removing old context handlers");
-
-      g_signal_handler_disconnect(priv->context, priv->start_id);
-      g_signal_handler_disconnect(priv->context, priv->define_id);
-      g_signal_handler_disconnect(priv->context, priv->end_id);
-
-      priv->start_id = 0;
-      priv->end_id = 0;
-      priv->define_id = 0;
-    }
-
-    if (priv->error_id) {
-      g_signal_handler_disconnect(priv->context, priv->error_id);
-
-      priv->error_id = 0;
-    }
+    GDICT_NOTE(DEFBOX, "Removing old context handlers");
+    g_clear_signal_handler(&priv->start_id, priv->context);
+    g_clear_signal_handler(&priv->define_id, priv->context);
+    g_clear_signal_handler(&priv->end_id, priv->context);
+    g_clear_signal_handler(&priv->error_id, priv->context);
 
     GDICT_NOTE(DEFBOX, "Removing old context");
-
-    g_object_unref(G_OBJECT(priv->context));
+    g_object_unref(priv->context);
   }
 
   if (!context) return;
@@ -241,9 +218,8 @@ static void set_gdict_context(GdictDefbox *defbox, GdictContext *context) {
   }
 
   GDICT_NOTE(DEFBOX, "Setting new context");
-
   priv->context = context;
-  g_object_ref(G_OBJECT(priv->context));
+  g_object_ref(priv->context);
 }
 
 static void gdict_defbox_set_property(GObject *object, guint prop_id,

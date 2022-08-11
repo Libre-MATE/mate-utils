@@ -108,28 +108,14 @@ static void set_gdict_context(GdictDatabaseChooser *chooser,
   priv = chooser->priv;
 
   if (priv->context) {
-    if (priv->start_id) {
-      GDICT_NOTE(CHOOSER, "Removing old context handlers");
-
-      g_signal_handler_disconnect(priv->context, priv->start_id);
-      g_signal_handler_disconnect(priv->context, priv->match_id);
-      g_signal_handler_disconnect(priv->context, priv->end_id);
-
-      priv->start_id = 0;
-      priv->end_id = 0;
-      priv->match_id = 0;
-    }
-
-    if (priv->error_id) {
-      g_signal_handler_disconnect(priv->context, priv->error_id);
-
-      priv->error_id = 0;
-    }
+    GDICT_NOTE(CHOOSER, "Removing old context handlers");
+    g_clear_signal_handler(&priv->start_id, priv->context);
+    g_clear_signal_handler(&priv->match_id, priv->context);
+    g_clear_signal_handler(&priv->end_id, priv->context);
+    g_clear_signal_handler(&priv->error_id, priv->context);
 
     GDICT_NOTE(CHOOSER, "Removing old context");
-
-    g_object_unref(G_OBJECT(priv->context));
-
+    g_object_unref(priv->context);
     priv->context = NULL;
     priv->results = -1;
   }

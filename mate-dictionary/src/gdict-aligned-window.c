@@ -254,10 +254,7 @@ void gdict_aligned_window_set_widget(GdictAlignedWindow *aligned_window,
 
   priv = gdict_aligned_window_get_instance_private(aligned_window);
 
-  if (priv->align_widget) {
-    g_signal_handler_disconnect(priv->align_widget, priv->motion_id);
-    priv->align_widget = NULL;
-  }
+  g_clear_signal_handler(&priv->motion_id, priv->align_widget);
 
   priv->align_widget = align_widget;
   priv->motion_id = g_signal_connect(
