@@ -87,35 +87,6 @@ static void read_new_lines_cb(LogviewLog *log, const char **lines,
 
 static void logview_version_selector_changed(GtkComboBox *version_selector,
                                              gpointer user_data) {}
-#if 0
-	LogviewWindow *logview = user_data;
-	Log *log = logview->curlog;
-	int selected;
-
-    g_assert (LOGVIEW_IS_WINDOW (logview));
-
-	selected = gtk_combo_box_get_active (version_selector);
-
-	if (selected == log->current_version)
-		return;
-
-	/* select a new version */
-	if (selected == 0) {
-		logview_select_log (logview, log->parent_log);
-	} else {
-		Log *new;
-		if (log->parent_log) {
-			new = log->parent_log->older_logs[selected];
-		} else {
-			new = log->older_logs[selected];
-		}
-
-		logview_select_log (logview, new);
-	}
-}
-
-#endif
-
 /* private helpers */
 
 static void populate_tag_table(GtkTextTagTable *tag_table) {

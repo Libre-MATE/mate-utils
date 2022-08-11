@@ -90,9 +90,6 @@ static void gdict_aligned_window_init(GdictAlignedWindow *aligned_window) {
   priv->motion_id = 0;
 
   /* set window properties */
-#if 0
-  gtk_window_set_modal (window, TRUE);
-#endif
   gtk_window_set_decorated(window, FALSE);
   gtk_window_set_type_hint(window, GDK_WINDOW_TYPE_HINT_DOCK);
 }
@@ -254,18 +251,6 @@ void gdict_aligned_window_set_widget(GdictAlignedWindow *aligned_window,
 
   g_return_if_fail(GDICT_IS_ALIGNED_WINDOW(aligned_window));
   g_return_if_fail(GTK_IS_WIDGET(align_widget));
-
-#if 0
-  if (GTK_WIDGET_NO_WINDOW (align_widget))
-    {
-      g_warning ("Attempting to set a widget of class '%s' as the "
-                 "align widget, but widgets of this class does not "
-                 "have a GdkWindow.",
-                 g_type_name (G_OBJECT_TYPE (align_widget)));
-
-      return;
-    }
-#endif
 
   priv = gdict_aligned_window_get_instance_private(aligned_window);
 

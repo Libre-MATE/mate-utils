@@ -1586,11 +1586,6 @@ static gboolean gdict_client_context_io_watch_cb(GIOChannel *channel,
 static gboolean check_for_connection(gpointer data) {
   GdictClientContext *context = data;
 
-#if 0
-  g_debug (G_STRLOC ": checking for connection (is connecting:%s)",
-           context->priv->is_connecting ? "true" : "false");
-#endif
-
   if (context == NULL) return FALSE;
 
   if (context->priv->is_connecting) {

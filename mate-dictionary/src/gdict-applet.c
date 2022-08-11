@@ -511,10 +511,6 @@ static gboolean gdict_applet_draw(GdictApplet *applet) {
 
   priv->box = box;
 
-#if 0
-  gtk_widget_grab_focus (priv->entry);
-#endif
-
   gtk_widget_show_all(GTK_WIDGET(applet));
 
   return FALSE;
@@ -673,9 +669,6 @@ static void gdict_applet_size_allocate(GtkWidget *widget,
 static void gdict_applet_style_set(GtkWidget *widget, GtkStyle *old_style) {
   if (GTK_WIDGET_CLASS(gdict_applet_parent_class)->style_set)
     GTK_WIDGET_CLASS(gdict_applet_parent_class)->style_set(widget, old_style);
-#if 0
-  set_window_default_size (GDICT_APPLET (widget));
-#endif
 }
 
 static void gdict_applet_set_database(GdictApplet *applet,
