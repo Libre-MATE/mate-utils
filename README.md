@@ -13,19 +13,20 @@ This software is licensed under the GNU GPL. For more on the license, see COPYIN
 
 Requirements
 ========================
-* intltool                 >= 0.50.1
-* mate-common              >= 1.24.1
-* GLib                     >= 2.50.0
-* GIO                      >= 2.50.0
-* GTK+                     >= 3.22.0
-* libmate-panel-applet     >= 1.17.0
-* libgtop                  >= 2.12.0
-* libcanberra-gtk          >= 0.4
+| Pakage | Version |
+| :----: | :-----: |
+| mate-common | >= 1.24.1 |
+| GLib | >= 2.62 |
+| GIO | >= 2.62
+| GTK+ | >= 3.22
+| libmate-panel-applet | >= 1.17
+| libgtop | >= 2.12
+| libcanberra-gtk | >= 0.4 |
 
 The following configure flags can be used:
 
-  `--enable-zlib`: Enable ZLib support for Logview [default=yes]
+-  `--enable-zlib`: Enable ZLib support for Logview [default=yes]
 
-  `--with-grep`: Specify the path to the grep command [default=find it ourselves]
+-  `--with-grep`: Specify the path to the grep command [default=find it ourselves]
 
-  `--enable-debug`: Enable debug messages [default=no]
+-  `--enable-debug`: Enable debug messages [default=no]
