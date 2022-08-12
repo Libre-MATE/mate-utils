@@ -660,7 +660,8 @@ static void logview_about(GtkWidget *widget, GtkWidget *window) {
       GTK_WINDOW(window), "program-name", _("System Log Viewer"), "version",
       VERSION, "title", _("About System Log Viewer"), "copyright",
       _("Copyright \xc2\xa9 1998-2008 Free Software Foundation, Inc.\n"
-        "Copyright \xc2\xa9 2011-2021 MATE developers"),
+        "Copyright \xc2\xa9 2011-2021 MATE developers\n"
+        "Copyright \xc2\xa9 2022 Libre MATE"),
       "license", license_trans, "wrap-license", TRUE, "comments",
       _("View, monitor or analyze your system logs in a gradual manner."),
       "authors", logview_about_authors, "documenters",

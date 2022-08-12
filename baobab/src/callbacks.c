@@ -91,7 +91,8 @@ void on_about_activate(GtkMenuItem *menuitem, gpointer user_data) {
       "version", VERSION, "title", _("About Disk Usage Analyzer"), "comments",
       _("Analyze your disk usage through a graphical tool."), "copyright",
       _("Copyright \xc2\xa9 2005-2010 Fabio Marzocca\n"
-        "Copyright \xc2\xa9 2011-2021 MATE developers"),
+        "Copyright \xc2\xa9 2011-2021 MATE developers\n"
+        "Copyright \xc2\xa9 2022 Libre MATE"),
       "logo-icon-name", "mate-disk-usage-analyzer", "license", license_trans,
       "authors", authors, "documenters", documenters, "translator-credits",
       _("translator-credits"), "wrap-license", TRUE, NULL);

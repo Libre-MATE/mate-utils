@@ -21,7 +21,7 @@ m4_define([mate_utils_version], [mate_utils_major.mate_utils_minor.mate_utils_mi
 
 AC_INIT([mate-utils],
         [mate_utils_version],
-        [https://mate-desktop.org/])
+        [https://github.com/Libre-MATE/mate-utils])
 
 AC_CONFIG_MACRO_DIR([m4])
 
