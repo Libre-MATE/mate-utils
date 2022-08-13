@@ -22,7 +22,7 @@ m4_define([mate_utils_version], [mate_utils_major.mate_utils_minor.mate_utils_mi
 AC_INIT([mate-utils],
         [mate_utils_version],
         [https://github.com/Libre-MATE/mate-utils])
-
+AC_COPYRIGHT([Copyright (C) 2022 Libre MATE])
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_CONFIG_HEADERS([config.h])
