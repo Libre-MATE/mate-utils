@@ -22,7 +22,9 @@ gdictapp_in_files = mate-dictionary.desktop.in
 gdictapp_DATA = $(gdictapp_in_files:.desktop.in=.desktop)
 
 $(gdictapp_in_files): $(gdictapp_in_files:.desktop.in=.desktop.in.in)
-	$(AM_V_GEN)sed -e "s|\@VERSION\@|@VERSION@|" $< > $@
+	$(AM_V_GEN)$(SED) \
+		-e "s|\@VERSION\@|@VERSION@|" \
+		$< > $@
 
 $(gdictapp_DATA): $(gdictapp_in_files)
 if USE_NLS
@@ -63,7 +65,7 @@ applet_in_files = org.mate.DictionaryApplet.mate-panel-applet.desktop.in
 applet_DATA = $(applet_in_files:.mate-panel-applet.desktop.in=.mate-panel-applet)
 
 $(applet_in_files): $(applet_in_files).in Makefile
-	$(AM_V_GEN)sed \
+	$(AM_V_GEN)$(SED) \
 		-e "s|\@LIBEXECDIR\@|$(libexecdir)|" \
 		$< > $@
 
@@ -79,7 +81,7 @@ service_in_files = org.mate.panel.applet.DictionaryAppletFactory.service.in
 service_DATA = $(service_in_files:.service.in=.service)
 
 org.mate.panel.applet.DictionaryAppletFactory.service: $(service_in_files)
-	$(AM_V_GEN)sed \
+	$(AM_V_GEN)$(SED) \
 		-e "s|\@LIBEXECDIR\@|$(libexecdir)|" \
 		$< > $@
 

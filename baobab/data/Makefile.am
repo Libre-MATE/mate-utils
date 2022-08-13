@@ -18,7 +18,9 @@ baobabapp_in_files = mate-disk-usage-analyzer.desktop.in
 baobabapp_DATA = $(baobabapp_in_files:.desktop.in=.desktop)
 
 $(baobabapp_in_files): $(baobabapp_in_files:.desktop.in=.desktop.in.in)
-	sed -e "s|\@VERSION\@|@VERSION@|" $< > $@
+	$(SED) \
+		-e "s|\@VERSION\@|@VERSION@|" \
+		$< > $@
 
 $(baobabapp_DATA): $(baobabapp_in_files)
 if USE_NLS

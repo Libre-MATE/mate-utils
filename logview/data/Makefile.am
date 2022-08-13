@@ -20,7 +20,9 @@ desktop_in_files = mate-system-log.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 $(desktop_in_files): $(desktop_in_files:.desktop.in=.desktop.in.in)
-	@sed -e "s|\@VERSION\@|@VERSION@|" $< > $@
+	$(SED) \
+		-e "s|\@VERSION\@|@VERSION@|" \
+		$< > $@
 
 $(desktop_DATA): $(desktop_in_files)
 if USE_NLS
