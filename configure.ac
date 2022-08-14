@@ -27,7 +27,8 @@ AC_INIT([mate-utils],
 AC_COPYRIGHT([Copyright (C) 2022 Libre MATE])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([1.11 foreign subdir-objects dist-xz no-dist-gzip silent-rules check-news]) #the foreign flavour disables warnings if README, NEWS such files are not present which are issued in the default gnu flavour
+AM_INIT_AUTOMAKE([1.11 foreign subdir-objects dist-xz no-dist-gzip check-news]) #the foreign flavour disables warnings if README, NEWS such files are not present which are issued in the default gnu flavour
+AM_SILENT_RULES([yes])
 
 MATE_COMMON_INIT
 MATE_DEBUG_CHECK([no])
