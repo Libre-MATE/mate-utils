@@ -35,7 +35,7 @@
 struct _GdictAlignedWindowPrivate {
   GtkWidget *align_widget;
 
-  guint motion_id;
+  gulong motion_id;
 };
 
 enum {

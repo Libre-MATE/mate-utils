@@ -61,9 +61,10 @@ struct _GdictAppletPrivate {
 
   gchar *word;
   GdictContext *context;
-  guint lookup_start_id;
-  guint lookup_end_id;
-  guint error_id;
+
+  gulong lookup_start_id;
+  gulong lookup_end_id;
+  gulong error_id;
 
   GdictSourceLoader *loader;
 

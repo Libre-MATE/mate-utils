@@ -83,10 +83,11 @@ struct _GdictWindow {
   gchar *source_name;
   GdictSourceLoader *loader;
   GdictContext *context;
-  guint definition_id;
-  guint lookup_start_id;
-  guint lookup_end_id;
-  guint error_id;
+
+  gulong definition_id;
+  gulong lookup_start_id;
+  gulong lookup_end_id;
+  gulong error_id;
 
   gchar *database;
   gchar *strategy;

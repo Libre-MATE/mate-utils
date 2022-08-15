@@ -58,10 +58,10 @@ struct _GdictDatabaseChooserPrivate {
   GdictContext *context;
   gint results;
 
-  guint start_id;
-  guint match_id;
-  guint end_id;
-  guint error_id;
+  gulong start_id;
+  gulong match_id;
+  gulong end_id;
+  gulong error_id;
 
   GdkCursor *busy_cursor;
 

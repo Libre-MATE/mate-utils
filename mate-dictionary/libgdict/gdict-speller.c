@@ -59,10 +59,10 @@ struct _GdictSpellerPrivate {
   GtkListStore *store;
   gint results;
 
-  guint start_id;
-  guint end_id;
-  guint match_id;
-  guint error_id;
+  gulong start_id;
+  gulong end_id;
+  gulong match_id;
+  gulong error_id;
 
   guint is_searching : 1;
 };

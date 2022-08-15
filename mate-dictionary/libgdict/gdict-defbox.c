@@ -86,10 +86,10 @@ struct _GdictDefboxPrivate {
   GdkCursor *hand_cursor;
   GdkCursor *regular_cursor;
 
-  guint start_id;
-  guint end_id;
-  guint define_id;
-  guint error_id;
+  gulong start_id;
+  gulong end_id;
+  gulong define_id;
+  gulong error_id;
   guint hide_timeout;
 
   GtkTextTag *link_tag;
