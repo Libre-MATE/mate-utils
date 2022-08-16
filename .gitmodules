@@ -1,4 +1,4 @@
 [submodule "gsearchtool/mate-submodules"]
 	path = gsearchtool/mate-submodules
-	url = https://github.com/rbuj/mate-submodules
+	url = https://github.com/Libre-MATE/mate-submodules
 	ignore = untracked
